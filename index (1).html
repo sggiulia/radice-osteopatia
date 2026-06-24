@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radice Osteopatia – Aosta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --almond:#EADED0;--sand:#C7AF94;--earth:#95714F;--moss:#8C916C;--sage:#ACB087;
+  --bark:#3D2E1E;--cream:#F5EFE6;--warm:#FAF7F2;--muted:#7A6E62;
+  --ivy:#3D5230;--ivyleaf:#4E7030;
+  --trans:0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--bark);overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5vw;height:72px;display:flex;align-items:center;justify-content:space-between;transition:background var(--trans),box-shadow var(--trans)}
+nav.scrolled{background:rgba(245,239,230,0.96);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(61,46,30,0.08)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:500;letter-spacing:.05em;color:var(--bark)}
+.nav-logo span{color:var(--moss)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--bark);opacity:.65;transition:opacity .25s}
+.nav-links a:hover{opacity:1}
+.nav-cta{background:var(--bark)!important;color:var(--cream)!important;opacity:1!important;padding:.5rem 1.3rem;border-radius:40px;transition:background .25s!important}
+.nav-cta:hover{background:var(--earth)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--bark);border-radius:2px}
+.mob-menu{display:none;position:fixed;inset:0;background:var(--cream);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mob-menu.open{display:flex}
+.mob-close{position:absolute;top:24px;right:5vw;font-size:1.4rem;cursor:pointer;color:var(--muted)}
+.mob-menu a{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--bark)}
+
+/* HERO */
+.hero{min-height:100svh;padding:72px 5vw 0;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:3rem;background:var(--cream);position:relative;overflow:hidden}
+.hero-bg{position:absolute;top:-10%;right:-5%;width:55vw;height:55vw;border-radius:50%;background:radial-gradient(ellipse,rgba(172,176,135,.12) 0%,transparent 70%);pointer-events:none}
+.hero-text{position:relative;z-index:2}
+.h-eye{font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--moss);margin-bottom:1.5rem;opacity:0;transform:translateY(14px);animation:fadeUp .8s .2s forwards}
+.h-head{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5.5vw,5.8rem);font-weight:300;line-height:1.06;color:var(--bark);margin-bottom:1.75rem;opacity:0;transform:translateY(22px);animation:fadeUp .9s .35s forwards}
+.h-head em{font-style:italic;color:var(--earth)}
+.h-sub{font-size:1.05rem;font-weight:300;color:var(--muted);max-width:420px;line-height:1.75;margin-bottom:2.5rem;opacity:0;animation:fadeUp .9s .5s forwards}
+.h-acts{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .9s .65s forwards}
+.btn-p{display:inline-flex;align-items:center;gap:.5rem;background:var(--bark);color:var(--cream);padding:.9rem 2rem;border-radius:40px;font-size:.88rem;font-weight:500;letter-spacing:.06em;transition:background var(--trans),transform .2s;border:none;cursor:pointer}
+.btn-p:hover{background:var(--earth);transform:translateY(-2px)}
+.btn-s{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--bark);padding:.9rem 2rem;border-radius:40px;font-size:.88rem;font-weight:500;letter-spacing:.06em;border:1.5px solid rgba(61,46,30,.22);transition:border-color var(--trans),transform .2s;cursor:pointer}
+.btn-s:hover{border-color:var(--earth);transform:translateY(-2px)}
+.hero-vis{display:flex;align-items:center;justify-content:center}
+.fig3d-wrap{width:320px;height:580px;position:relative;flex-shrink:0}
+.fig3d-wrap canvas{width:100%!important;height:100%!important;display:block}
+.nav-logo span{color:var(--ivy)}
+
+/* WAVE */
+.wave{width:100%;overflow:hidden;line-height:0;margin-top:-2px}
+.wave svg{display:block;width:100%}
+
+/* TRUST */
+.trust{background:var(--almond);padding:3rem 5vw;display:flex;align-items:center;justify-content:center;gap:4rem;flex-wrap:wrap}
+.t-item{display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.t-num{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:500;color:var(--bark);line-height:1}
+.t-lbl{font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.t-line{width:1px;height:50px;background:rgba(61,46,30,.15)}
+
+/* SECTIONS */
+section{padding:6rem 5vw}
+.eye{font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--moss);margin-bottom:1rem}
+.stitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3.2rem);font-weight:300;line-height:1.15;color:var(--bark);margin-bottom:1rem}
+.stitle em{font-style:italic;color:var(--earth)}
+.ssub{font-size:1rem;color:var(--muted);max-width:560px;line-height:1.75;margin-bottom:3.5rem}
+
+/* SERVICES */
+.svc-bg{background:var(--cream)}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.sc{background:var(--warm);border-radius:20px;padding:2rem;cursor:pointer;border:1.5px solid transparent;transition:border-color var(--trans),box-shadow var(--trans),transform .3s;position:relative;overflow:hidden}
+.sc::before{content:'';position:absolute;left:0;top:0;width:3px;height:0;background:var(--earth);border-radius:0 3px 3px 0;transition:height var(--trans)}
+.sc:hover,.sc.act{border-color:rgba(149,113,79,.3);box-shadow:0 8px 32px rgba(61,46,30,.07);transform:translateY(-3px)}
+.sc:hover::before,.sc.act::before{height:100%}
+.si{width:46px;height:46px;background:var(--almond);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;transition:background var(--trans)}
+.sc:hover .si,.sc.act .si{background:rgba(172,176,135,.3)}
+.si svg{width:22px;height:22px;stroke:var(--earth);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.sn{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:500;margin-bottom:.5rem;color:var(--bark)}
+.sp{font-size:.88rem;color:var(--muted);line-height:1.65;margin-bottom:.75rem}
+.se{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(0.25,0.46,0.45,0.94)}
+.sc.act .se{max-height:220px}
+.sd{font-size:.85rem;color:var(--muted);line-height:1.7;padding-top:.85rem;border-top:1px solid var(--almond)}
+.stags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem}
+.stag{background:var(--almond);color:var(--earth);font-size:.7rem;padding:.25rem .7rem;border-radius:20px;font-weight:500;letter-spacing:.04em}
+.stgl{position:absolute;top:1.5rem;right:1.5rem;width:28px;height:28px;border-radius:50%;background:var(--almond);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:300;transition:transform .3s,background .3s;color:var(--earth)}
+.sc.act .stgl{transform:rotate(45deg);background:var(--earth);color:var(--cream)}
+
+/* HOW */
+.how-bg{background:var(--bark);color:var(--cream);position:relative;overflow:hidden}
+.how-bg::before{content:'';position:absolute;top:-30%;right:-10%;width:50vw;height:80%;background:radial-gradient(ellipse,rgba(172,176,135,.07) 0%,transparent 70%);pointer-events:none}
+.how-bg .eye{color:var(--sand)}
+.how-bg .stitle{color:var(--cream)}
+.how-bg .ssub{color:rgba(245,239,230,.55)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);position:relative;margin-top:1rem}
+.strack{position:absolute;top:40px;left:calc(16.66% + 22px);right:calc(16.66% + 22px);height:1px;background:rgba(245,239,230,.12);z-index:0}
+.sfill{position:absolute;top:40px;left:calc(16.66% + 22px);width:0;height:1px;background:var(--sage);z-index:1;transition:width 1.6s ease}
+.step{text-align:center;padding:0 2rem;position:relative;z-index:2;opacity:0}
+.step.rev{opacity:1}
+.scw{position:relative;width:80px;height:80px;margin:0 auto 2rem}
+.scc{width:80px;height:80px;border-radius:50%;background:rgba(245,239,230,.05);border:1.5px solid rgba(245,239,230,.18);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--sand);transition:background var(--trans),border-color var(--trans)}
+.step.rev .scc{background:rgba(172,176,135,.12);border-color:var(--sage)}
+.sif{position:absolute;top:-8px;right:-8px}
+.sif svg{width:22px;height:22px;stroke:var(--sage);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.stepttl{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--cream);margin-bottom:.75rem}
+.stepdsc{font-size:.88rem;color:rgba(245,239,230,.55);line-height:1.7}
+.stepdur{display:inline-block;margin-top:1rem;font-size:.7rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--sage)}
+
+/* BODY INT */
+.bint-bg{background:var(--almond);padding:6rem 5vw}
+.bint-lay{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:center;margin-top:2rem}
+.bint-fig{display:flex;justify-content:center}
+.bsvg{width:220px;cursor:default}
+.zone{cursor:pointer;transition:fill .35s,stroke .35s}
+.bpanels{display:flex;flex-direction:column;gap:.7rem}
+.bp{background:var(--warm);border-radius:16px;padding:1.2rem 1.4rem;cursor:pointer;border:1.5px solid transparent;transition:all .3s;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.9rem}
+.bp:hover,.bp.act{border-color:rgba(149,113,79,.35);box-shadow:0 4px 18px rgba(61,46,30,.07)}
+.bp.act{background:var(--bark)}
+.bpic{width:34px;height:34px;display:flex;align-items:center;justify-content:center}
+.bpic svg{width:20px;height:20px;stroke:var(--earth);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s}
+.bp.act .bpic svg{stroke:var(--sage)}
+.bpn{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;color:var(--bark);transition:color .3s}
+.bp.act .bpn{color:var(--cream)}
+.bpd{font-size:.82rem;color:var(--muted);line-height:1.55;max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .4s;opacity:0;grid-column:2}
+.bp.act .bpd{max-height:80px;opacity:1;color:rgba(245,239,230,.6)}
+.bpa{font-size:1rem;color:var(--sand);transition:transform .3s}
+.bp.act .bpa{transform:rotate(90deg)}
+
+/* TESTIMONIALS */
+.test-bg{background:var(--cream)}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.tc{background:var(--warm);border-radius:20px;padding:2rem;border:1.5px solid var(--almond);transition:box-shadow var(--trans),transform .3s}
+.tc:hover{box-shadow:0 8px 28px rgba(61,46,30,.07);transform:translateY(-4px)}
+.tqm{font-family:'Cormorant Garamond',serif;font-size:3.5rem;line-height:.5;color:var(--sand);display:block;margin-bottom:1.25rem}
+.ttxt{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-style:italic;color:var(--muted);line-height:1.8;margin-bottom:1.5rem}
+.taut{display:flex;align-items:center;gap:.75rem}
+.tav{width:40px;height:40px;border-radius:50%;background:var(--almond);display:flex;align-items:center;justify-content:center}
+.tav svg{width:20px;height:20px;stroke:var(--earth);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.tname{font-size:.85rem;font-weight:500;color:var(--bark)}
+.trole{font-size:.73rem;color:var(--muted)}
+.tstars{display:flex;gap:3px;margin-bottom:1rem}
+.tstars svg{width:13px;height:13px;fill:var(--sand)}
+
+/* BOOKING */
+.book-bg{background:var(--bark);color:var(--cream);position:relative;overflow:hidden}
+.book-bg::after{content:'';position:absolute;bottom:-20%;left:-10%;width:50vw;height:80%;background:radial-gradient(ellipse,rgba(172,176,135,.05) 0%,transparent 70%);pointer-events:none}
+.book-lay{display:grid;grid-template-columns:1fr 1.5fr;gap:6rem;align-items:start}
+.bi .eye{color:var(--sand)}
+.bi .stitle{color:var(--cream)}
+.bi .ssub{color:rgba(245,239,230,.55)}
+.bperks{list-style:none;display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.bpk{display:flex;align-items:flex-start;gap:.75rem;font-size:.9rem;color:rgba(245,239,230,.7);line-height:1.55}
+.pklf{flex-shrink:0;margin-top:3px}
+.pklf svg{width:14px;height:14px;stroke:var(--sage);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bfb{background:rgba(245,239,230,.05);border:1px solid rgba(245,239,230,.1);border-radius:24px;padding:2.5rem;position:relative;z-index:1}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.ff{grid-column:1/-1}
+.fgr{display:flex;flex-direction:column;gap:.4rem}
+.fl{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,239,230,.45)}
+.fi,.fs,.fta{background:rgba(245,239,230,.07);border:1px solid rgba(245,239,230,.13);border-radius:10px;padding:.8rem 1rem;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--cream);outline:none;transition:border-color .25s;width:100%;-webkit-appearance:none;appearance:none}
+.fi::placeholder,.fta::placeholder{color:rgba(245,239,230,.28)}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--sage);background:rgba(245,239,230,.1)}
+.fs option{background:var(--bark)}
+.fta{resize:none;height:100px}
+.fsb{width:100%;margin-top:1.25rem;background:var(--sage);color:var(--bark);padding:1rem;border-radius:40px;border:none;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;letter-spacing:.08em;cursor:pointer;transition:background .25s,transform .2s}
+.fsb:hover{background:var(--moss);color:var(--cream);transform:translateY(-2px)}
+.fok{display:none;text-align:center;padding:2.5rem 1rem;color:var(--sage);font-family:'Cormorant Garamond',serif;font-size:1.5rem;line-height:1.7}
+.fok span{display:block;font-family:'DM Sans',sans-serif;font-size:.9rem;color:rgba(245,239,230,.5);font-weight:300;margin-top:.5rem}
+
+/* CONTACT */
+.ct-bg{background:var(--almond);padding:5rem 5vw}
+.ct-lay{display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;align-items:start}
+.citems{display:flex;flex-direction:column;gap:2rem}
+.ci{display:flex;align-items:flex-start;gap:1rem}
+.cic{width:44px;height:44px;border-radius:12px;background:var(--warm);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(61,46,30,.06)}
+.cic svg{width:20px;height:20px;stroke:var(--earth);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.clbl{font-size:.7rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+.cval{font-size:.95rem;color:var(--bark);line-height:1.6}
+.mapw{border-radius:20px;overflow:hidden;height:300px;box-shadow:0 4px 24px rgba(61,46,30,.1)}
+.mapw iframe{width:100%;height:100%;border:none}
+
+/* FOOTER */
+footer{background:var(--bark);color:rgba(245,239,230,.5);padding:3rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.flogo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;color:var(--cream);letter-spacing:.05em}
+.flogo span{color:var(--sage)}
+.fcopy{font-size:.78rem}
+.flinks{display:flex;gap:1.5rem}
+.flinks a{font-size:.78rem;color:rgba(245,239,230,.4);transition:color .2s}
+.flinks a:hover{color:var(--cream)}
+
+/* WA */
+.waf{position:fixed;bottom:28px;right:28px;z-index:200;display:flex;align-items:center;gap:.75rem}
+.walbl{background:var(--bark);color:var(--cream);font-size:.78rem;font-weight:500;padding:.45rem .9rem;border-radius:20px;opacity:0;transform:translateX(10px);transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.waf:hover .walbl{opacity:1;transform:translateX(0)}
+.wabtn{width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .3s;cursor:pointer;position:relative}
+.wabtn:hover{transform:scale(1.1)}
+.wabtn svg{width:28px;height:28px;fill:white}
+.wapulse{position:absolute;inset:0;border-radius:50%;background:rgba(37,211,102,.25);animation:wap 2.2s infinite;pointer-events:none}
+
+/* REVEAL */
+.rv{opacity:0}
+.rv.rvd{opacity:1}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes wap{0%{transform:scale(1);opacity:.5}70%{transform:scale(1.55);opacity:0}100%{opacity:0}}
+@keyframes floatUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes leafSway{0%,100%{transform:rotate(0deg) translateX(0)}33%{transform:rotate(2deg) translateX(2px)}66%{transform:rotate(-1.5deg) translateX(-2px)}}
+@keyframes leafSway{0%,100%{transform:rotate(0deg)}33%{transform:rotate(1.5deg)}66%{transform:rotate(-1deg)}}
+@keyframes spriteFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes branchDraw{to{stroke-dashoffset:0}}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding-top:100px;text-align:center;gap:2.5rem}
+  .h-sub,.h-acts{margin-left:auto;margin-right:auto}
+  .h-acts{justify-content:center}
+  .hero-vis{order:-1}
+  .hero-fig{width:200px;height:340px}
+  .fig3d-wrap{width:240px;height:420px}
+  .svc-grid,.steps,.bint-lay,.test-grid,.book-lay,.ct-lay{grid-template-columns:1fr}
+  .steps .strack,.steps .sfill{display:none}
+  .step{opacity:1;transform:none}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;text-align:center}
+  .trust{gap:2rem}
+  .t-line{display:none}
+  .fg{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+<nav id="mn">
+  <div class="nav-logo">Radi<span>ce</span></div>
+  <ul class="nav-links">
+    <li><a href="#servizi">Servizi</a></li>
+    <li><a href="#come-funziona">Come Funziona</a></li>
+    <li><a href="#testimonianze">Testimonianze</a></li>
+    <li><a href="#contatti">Contatti</a></li>
+    <li><a href="#prenota" class="nav-cta">Prenota</a></li>
+  </ul>
+  <div class="hamburger" id="hbg" onclick="toggleMob()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mob-menu" id="mm">
+  <span class="mob-close" onclick="toggleMob()">✕</span>
+  <a href="#servizi" onclick="toggleMob()">Servizi</a>
+  <a href="#come-funziona" onclick="toggleMob()">Come Funziona</a>
+  <a href="#testimonianze" onclick="toggleMob()">Testimonianze</a>
+  <a href="#contatti" onclick="toggleMob()">Contatti</a>
+  <a href="#prenota" onclick="toggleMob()">Prenota</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-text">
+    <p class="h-eye">Osteopatia · Aosta, Valle d'Aosta</p>
+    <h1 class="h-head">Il tuo corpo<br>conosce la via<br>verso <em>l'equilibrio</em></h1>
+    <p class="h-sub">Un approccio dolce e integrato che lavora con le strutture profonde del corpo — ossa, muscoli, fasce — per liberare tensioni e ritrovare benessere duraturo.</p>
+    <div class="h-acts">
+      <a href="#prenota" class="btn-p">Prenota una visita &rarr;</a>
+      <a href="#servizi" class="btn-s">Scopri i trattamenti</a>
+    </div>
+  </div>
+  <div class="hero-vis">
+    <div class="fig3d-wrap">
+      <canvas id="fig3d"></canvas>
+    </div>
+  </div>
+</section>
+
+<div class="wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="#EADED0" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z"/></svg></div>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="t-item rv"><span class="t-num" data-count="500">0</span><span class="t-lbl">Pazienti trattati</span></div>
+  <div class="t-line rv d1"></div>
+  <div class="t-item rv d1"><span class="t-num">5+</span><span class="t-lbl">Anni di esperienza</span></div>
+  <div class="t-line rv d2"></div>
+  <div class="t-item rv d2"><span class="t-num">98%</span><span class="t-lbl">Pazienti soddisfatti</span></div>
+  <div class="t-line rv d3"></div>
+  <div class="t-item rv d3"><span class="t-num">60'</span><span class="t-lbl">Prima visita dedicata</span></div>
+</div>
+
+<div class="wave" style="transform:rotate(180deg);background:var(--cream);margin-top:-2px"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="#EADED0" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z"/></svg></div>
+
+<!-- SERVICES -->
+<section class="svc-bg" id="servizi">
+  <p class="eye rv">Trattamenti</p>
+  <h2 class="stitle rv d1">Ogni corpo ha<br>la sua <em>storia</em></h2>
+  <p class="ssub rv d2">L'osteopatia lavora sull'insieme, cercando la causa profonda del disagio. Clicca su ogni trattamento per scoprire di più.</p>
+  <div class="svc-grid">
+
+    <div class="sc rv" onclick="tSvc(this)">
+      <div class="stgl">+</div>
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="sn">Osteopatia Strutturale</div>
+      <p class="sp">Libera le tensioni di muscoli, articolazioni e colonna vertebrale attraverso tecniche manuali precise.</p>
+      <div class="se"><div class="sd">La tecnica strutturale agisce sulle disfunzioni osteoarticolari con manipolazioni dolci e mirate, ripristinando mobilità e riducendo il dolore in modo duraturo.<div class="stags"><span class="stag">Mal di schiena</span><span class="stag">Ernia del disco</span><span class="stag">Sciatalgia</span><span class="stag">Cervicalgia</span></div></div></div>
+    </div>
+
+    <div class="sc rv d1" onclick="tSvc(this)">
+      <div class="stgl">+</div>
+      <div class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <div class="sn">Osteopatia Craniosacrale</div>
+      <p class="sp">Un approccio ultradelicato che lavora sui ritmi sottili del sistema craniosacrale.</p>
+      <div class="se"><div class="sd">Attraverso tocchi leggerissimi sul cranio e sul sacro, si influenza il sistema nervoso centrale favorendo un profondo rilassamento e il riequilibrio delle tensioni fasciali.<div class="stags"><span class="stag">Cefalee</span><span class="stag">Stress</span><span class="stag">Neonati</span><span class="stag">Gravidanza</span></div></div></div>
+    </div>
+
+    <div class="sc rv d2" onclick="tSvc(this)">
+      <div class="stgl">+</div>
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9C5 14 12 22 12 22C12 22 19 14 19 9C19 5 16 2 12 2Z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+      <div class="sn">Osteopatia in Gravidanza</div>
+      <p class="sp">Accompagna il corpo nei cambiamenti della gravidanza, preparando il bacino al parto.</p>
+      <div class="se"><div class="sd">Supporta l'adattamento della colonna e del bacino, riduce il rischio di disturbi posturali e favorisce un recupero post-parto più rapido.<div class="stags"><span class="stag">Dolore lombare</span><span class="stag">Sciatalgia</span><span class="stag">Post-parto</span><span class="stag">Nausea</span></div></div></div>
+    </div>
+
+    <div class="sc rv d3" onclick="tSvc(this)">
+      <div class="stgl">+</div>
+      <div class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+      <div class="sn">Osteopatia Sportiva</div>
+      <p class="sp">Prevenzione degli infortuni, recupero rapido e ottimizzazione della performance atletica.</p>
+      <div class="se"><div class="sd">Analisi biomeccanica, trattamento delle tensioni da sovraccarico e protocolli di recupero post-infortuno per ogni disciplina e livello.<div class="stags"><span class="stag">Tendiniti</span><span class="stag">Distorsioni</span><span class="stag">Performance</span><span class="stag">Prevenzione</span></div></div></div>
+    </div>
+
+    <div class="sc rv" onclick="tSvc(this)">
+      <div class="stgl">+</div>
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="sn">Osteopatia Pediatrica</div>
+      <p class="sp">Dai neonati con coliche o plagiocefalia ai bambini con disturbi di postura e crescita.</p>
+      <div class="se"><div class="sd">Tecniche gentilissime adattate alla fisiologia del bambino. Intervento precoce su disfunzioni che, non trattate, potrebbero accompagnare la crescita.<div class="stags"><span class="stag">Coliche</span><span class="stag">Plagiocefalia</span><span class="stag">Postura</span><span class="stag">Scoliosi</span></div></div></div>
+    </div>
+
+    <div class="sc rv d1" onclick="tSvc(this)">
+      <div class="stgl">+</div>
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>
+      <div class="sn">Osteopatia Viscerale</div>
+      <p class="sp">Agisce sugli organi interni per liberare tensioni fasciali profonde che influenzano tutto il corpo.</p>
+      <div class="se"><div class="sd">Gli organi interni possono essere fonte di tensioni riflesse. Lavoriamo sulle membrane che li avvolgono, migliorandone la mobilità e la funzione.<div class="stags"><span class="stag">Digestione</span><span class="stag">Riflusso</span><span class="stag">Dolori cronici</span><span class="stag">Ciclo irregolare</span></div></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-bg" id="come-funziona">
+  <p class="eye">Il percorso</p>
+  <h2 class="stitle">Semplice, chiaro,<br><em>personale</em></h2>
+  <p class="ssub">Ogni visita è un dialogo tra te e il tuo corpo. Non esistono protocolli uguali per tutti.</p>
+  <div class="steps" id="stepsWrap">
+    <div class="strack"></div>
+    <div class="sfill" id="sf"></div>
+    <div class="step" id="s1">
+      <div class="scw"><div class="scc">I</div><div class="sif"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div></div>
+      <div class="stepttl">Prima Visita</div>
+      <p class="stepdsc">Ascolto profondo della tua storia clinica, delle tue abitudini e di come vivi il disagio nel quotidiano.</p>
+      <span class="stepdur">60 minuti</span>
+    </div>
+    <div class="step" id="s2">
+      <div class="scw"><div class="scc">II</div><div class="sif"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div></div>
+      <div class="stepttl">Valutazione</div>
+      <p class="stepdsc">Analisi posturale e test osteopatico per individuare le disfunzioni e comprendere la causa profonda dei sintomi.</p>
+      <span class="stepdur">Incluso nella visita</span>
+    </div>
+    <div class="step" id="s3">
+      <div class="scw"><div class="scc">III</div><div class="sif"><svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></div></div>
+      <div class="stepttl">Trattamento & Piano</div>
+      <p class="stepdsc">Trattamento su misura e, se necessario, un piano di follow-up personalizzato per consolidare i risultati.</p>
+      <span class="stepdur">45 minuti</span>
+    </div>
+  </div>
+</section>
+
+<div class="wave" style="background:var(--bark);margin-top:-2px"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="#EADED0" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z"/></svg></div>
+
+<!-- BODY INTERACTIVE -->
+<section class="bint-bg">
+  <p class="eye rv">Mappa del corpo</p>
+  <h2 class="stitle rv d1">Cosa tratta<br><em>l'osteopatia</em></h2>
+  <p class="ssub rv d2">Seleziona un'area corporea per scoprire i disturbi che l'osteopatia può aiutarti a risolvere.</p>
+  <div class="bint-lay">
+    <div class="bint-fig">
+      <svg class="bsvg" id="bsvg" viewBox="0 0 200 480" xmlns="http://www.w3.org/2000/svg">
+        <ellipse id="zh" class="zone" data-p="ph" cx="100" cy="58" rx="32" ry="37" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <rect id="zn" class="zone" data-p="pn" x="88" y="88" width="24" height="20" rx="5" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <path id="zt" class="zone" data-p="pb" d="M 62 108 Q 55 135 58 172 Q 60 200 65 220 L 135 220 Q 140 200 142 172 Q 145 135 138 108 Z" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <ellipse id="zsl" class="zone" data-p="ps" cx="50" cy="118" rx="18" ry="11" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <ellipse id="zsr" class="zone" data-p="ps" cx="150" cy="118" rx="18" ry="11" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <path id="zal" class="zone" data-p="pa" d="M 35 122 Q 27 158 30 192 Q 32 208 36 218 Q 46 222 48 212 Q 44 192 44 158 Q 46 130 52 122 Z" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <path id="zar" class="zone" data-p="pa" d="M 165 122 Q 173 158 170 192 Q 168 208 164 218 Q 154 222 152 212 Q 156 192 156 158 Q 154 130 148 122 Z" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <path id="zpv" class="zone" data-p="pp" d="M 65 220 Q 58 238 62 252 L 138 252 Q 142 238 135 220 Z" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <path id="zll" class="zone" data-p="pl" d="M 70 252 Q 64 298 66 348 Q 67 372 68 402 Q 76 408 83 402 Q 84 372 85 348 Q 87 298 90 252 Z" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <path id="zlr" class="zone" data-p="pl" d="M 130 252 Q 136 298 134 348 Q 133 372 132 402 Q 124 408 117 402 Q 116 372 115 348 Q 113 298 110 252 Z" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <ellipse id="zfl" class="zone" data-p="pl" cx="76" cy="412" rx="14" ry="7" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <ellipse id="zfr" class="zone" data-p="pl" cx="124" cy="412" rx="14" ry="7" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="bpanels" id="bpanels">
+      <div class="bp act" id="ph" onclick="selP('ph')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        <div><div class="bpn">Testa & Cranio</div><div class="bpd">Cefalee tensionali, emicranie, vertigini, disfunzioni dell'ATM, sinusite, acufeni.</div></div>
+        <div class="bpa">›</div>
+      </div>
+      <div class="bp" id="pn" onclick="selP('pn')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+        <div><div class="bpn">Collo & Cervicale</div><div class="bpd">Cervicalgia, torcicollo, dolori irradiati al braccio, nevralgia cervicobrachiale.</div></div>
+        <div class="bpa">›</div>
+      </div>
+      <div class="bp" id="pb" onclick="selP('pb')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><path d="M12 2L12 22M8 6L12 2L16 6M8 18L12 22L16 18"/></svg></div>
+        <div><div class="bpn">Schiena & Colonna</div><div class="bpd">Lombalgia acuta e cronica, ernie del disco, dorso curvo, scoliosi, postura.</div></div>
+        <div class="bpa">›</div>
+      </div>
+      <div class="bp" id="ps" onclick="selP('ps')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><path d="M6 12C6 8.69 8.69 6 12 6M18 12C18 15.31 15.31 18 12 18"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div><div class="bpn">Spalla & Braccio</div><div class="bpd">Periartrite, cuffia dei rotatori, epicondilite, tendiniti, dolori post-frattura.</div></div>
+        <div class="bpa">›</div>
+      </div>
+      <div class="bp" id="pa" onclick="selP('pa')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><path d="M18 11V6.5A2.5 2.5 0 0 0 13 6.5V11M13 8.5V7A2.5 2.5 0 0 0 8 7v1.5M8 10V8.5A2 2 0 0 0 4 8.5V14A7 7 0 0 0 11 21h3A6 6 0 0 0 20 15V11a2 2 0 0 0-4 0"/></svg></div>
+        <div><div class="bpn">Gomito, Polso & Mano</div><div class="bpd">Gomito del tennista, tunnel carpale, tendinite del polso, dolori da sovraccarico.</div></div>
+        <div class="bpa">›</div>
+      </div>
+      <div class="bp" id="pp" onclick="selP('pp')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><path d="M3 12C3 7.03 7.03 3 12 3C16.97 3 21 7.03 21 12M3 12H21M12 12C12 16.97 8 21 5 21M12 12C12 16.97 16 21 19 21"/></svg></div>
+        <div><div class="bpn">Bacino & Lombari</div><div class="bpd">Sciatalgia, dolore sacroiliaco, dismetria degli arti, pavimento pelvico.</div></div>
+        <div class="bpa">›</div>
+      </div>
+      <div class="bp" id="pl" onclick="selP('pl')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><path d="M10 2L8 14L11 16L9 22M14 2L16 14L13 16L15 22"/></svg></div>
+        <div><div class="bpn">Gambe & Piedi</div><div class="bpd">Gonalgia, fascite plantare, distorsioni di caviglia, metatarsalgia, sovraccarico sportivo.</div></div>
+        <div class="bpa">›</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave" style="background:var(--almond);margin-top:-2px"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="var(--cream)" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z"/></svg></div>
+
+<!-- TESTIMONIALS -->
+<section class="test-bg" id="testimonianze">
+  <p class="eye rv">Testimonianze</p>
+  <h2 class="stitle rv d1">Cosa dicono<br>i <em>pazienti</em></h2>
+  <p class="ssub rv d2">Le parole di chi ha scelto Radice per ritrovare il proprio equilibrio.</p>
+  <div class="test-grid">
+    <div class="tc rv">
+      <div class="tstars"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <span class="tqm">"</span>
+      <p class="ttxt">Soffro di mal di schiena cronico da anni. Dopo soli tre sedute mi sono sentita una persona diversa. Finalmente capisco come funziona il mio corpo.</p>
+      <div class="taut"><div class="tav"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="tname">Martina R.</div><div class="trole">Insegnante · Aosta</div></div></div>
+    </div>
+    <div class="tc rv d1">
+      <div class="tstars"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <span class="tqm">"</span>
+      <p class="ttxt">Ho portato mia figlia di tre mesi per le coliche. Il trattamento è stato dolcissimo. In una settimana la situazione era completamente diversa.</p>
+      <div class="taut"><div class="tav"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="tname">Giulia & Sofia</div><div class="trole">Madre · Saint-Vincent</div></div></div>
+    </div>
+    <div class="tc rv d2">
+      <div class="tstars"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <span class="tqm">"</span>
+      <p class="ttxt">Come atleta di trail running avevo bisogno di qualcuno che capisse il movimento. Ho migliorato la postura e ridotto i tempi di recupero post-gara.</p>
+      <div class="taut"><div class="tav"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="tname">Marco T.</div><div class="trole">Trail runner · Courmayeur</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="book-bg" id="prenota">
+  <div class="book-lay">
+    <div class="bi">
+      <p class="eye">Prenota</p>
+      <h2 class="stitle">Inizia il tuo<br><em>percorso</em></h2>
+      <p class="ssub">La prima visita dura circa 60 minuti. Compila il modulo e ti contatteremo per confermare.</p>
+      <ul class="bperks">
+        <li class="bpk"><div class="pklf"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>Prima visita completa con anamnesi e trattamento</li>
+        <li class="bpk"><div class="pklf"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>Studio accogliente in centro ad Aosta</li>
+        <li class="bpk"><div class="pklf"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>Risposta entro 24 ore dalla richiesta</li>
+        <li class="bpk"><div class="pklf"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>Satispay, bonifico o contanti a tua scelta</li>
+        <li class="bpk"><div class="pklf"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>Ricevuta fiscale per ogni seduta</li>
+      </ul>
+    </div>
+    <div class="bfb">
+      <div id="bform">
+        <div class="fg">
+          <div class="fgr"><label class="fl">Nome *</label><input class="fi" type="text" placeholder="Il tuo nome" id="fn"></div>
+          <div class="fgr"><label class="fl">Cognome *</label><input class="fi" type="text" placeholder="Il tuo cognome" id="fco"></div>
+          <div class="fgr"><label class="fl">Telefono *</label><input class="fi" type="tel" placeholder="+39 333 123 4567" id="ft"></div>
+          <div class="fgr"><label class="fl">Email *</label><input class="fi" type="email" placeholder="tua@email.it" id="fe"></div>
+          <div class="fgr ff"><label class="fl">Tipo di trattamento</label>
+            <select class="fs" id="fsv">
+              <option value="">Seleziona un trattamento...</option>
+              <option>Osteopatia Strutturale</option><option>Osteopatia Craniosacrale</option>
+              <option>Osteopatia in Gravidanza</option><option>Osteopatia Sportiva</option>
+              <option>Osteopatia Pediatrica</option><option>Osteopatia Viscerale</option>
+              <option>Non so — prima valutazione</option>
+            </select>
+          </div>
+          <div class="fgr"><label class="fl">Data preferita</label><input class="fi" type="date" id="fd"></div>
+          <div class="fgr"><label class="fl">Orario preferito</label>
+            <select class="fs" id="fh">
+              <option value="">Seleziona...</option>
+              <option>Mattina (8:00–12:00)</option><option>Pomeriggio (14:00–18:00)</option>
+              <option>Tardo pomeriggio (18:00–20:00)</option>
+            </select>
+          </div>
+          <div class="fgr ff"><label class="fl">Descrivi brevemente il tuo disturbo</label><textarea class="fta" placeholder="Es: mal di schiena da alcune settimane, soprattutto al risveglio..." id="fm"></textarea></div>
+        </div>
+        <button class="fsb" onclick="doBook()">Invia richiesta &rarr;</button>
+      </div>
+      <div class="fok" id="fok">
+        <svg viewBox="0 0 24 24" style="width:48px;height:48px;margin:0 auto 1rem;stroke:var(--sage);fill:none;stroke-width:1.5;stroke-linecap:round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+        Richiesta ricevuta!<span>Ti contatteremo entro 24 ore per confermare l'appuntamento.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="ct-bg" id="contatti">
+  <p class="eye rv">Dove trovarci</p>
+  <h2 class="stitle rv d1">Lo <em>studio</em></h2>
+  <div class="ct-lay">
+    <div class="citems rv">
+      <div class="ci"><div class="cic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="clbl">Indirizzo</div><div class="cval">Via Festaz, 12<br>11100 Aosta (AO)</div></div></div>
+      <div class="ci"><div class="cic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><div class="clbl">Telefono / WhatsApp</div><div class="cval">+39 333 000 0000</div></div></div>
+      <div class="ci"><div class="cic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="clbl">Email</div><div class="cval">info@radiceosteopatia.it</div></div></div>
+      <div class="ci"><div class="cic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="clbl">Orari</div><div class="cval">Lun – Ven: 8:00 – 20:00<br>Sabato: 9:00 – 13:00</div></div></div>
+    </div>
+    <div class="mapw rv d1"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11148.77!2d7.3151!3d45.7373!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47886e22f44e8f4b%3A0x400!2sAosta%2C+AO!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Radice Osteopatia Aosta"></iframe></div>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">Radi<span>ce</span></div>
+  <p class="fcopy">&copy; 2024 Radice Osteopatia &middot; Aosta &middot; P.IVA 00000000000</p>
+  <div class="flinks"><a href="#">Privacy</a><a href="#">Cookie</a><a href="#prenota">Prenota</a></div>
+</footer>
+
+<a href="https://wa.me/393330000000" target="_blank" class="waf" aria-label="WhatsApp">
+  <div class="walbl">Scrivici su WhatsApp</div>
+  <div class="wabtn">
+    <div class="wapulse"></div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+  </div>
+</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+// Branch draw on load
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.br').forEach(el=>{
+    const styleStr=el.getAttribute('style')||'';
+    const delayMatch=styleStr.match(/animation-delay:([\d.]+)s/);
+    const delay=(delayMatch?parseFloat(delayMatch[1]):0)*1000+900;
+    setTimeout(()=>{
+      el.style.transition='stroke-dashoffset 1.3s cubic-bezier(0.4,0,0.2,1)';
+      el.style.strokeDashoffset='0';
+    },delay);
+  });
+});
+
+
+// ══════════════════════════════════════════════════════
+// THREE.JS FIGURE 3D
+// ══════════════════════════════════════════════════════
+(function() {
+  const canvas3d = document.getElementById('fig3d');
+  if (!canvas3d) return;
+
+  const W3 = 320, H3 = 580;
+  const renderer3 = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, alpha: true });
+  renderer3.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer3.setSize(W3, H3);
+  renderer3.setClearColor(0x000000, 0);
+  renderer3.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer3.toneMappingExposure = 1.1;
+  renderer3.shadowMap.enabled = true;
+  renderer3.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  const scene3  = new THREE.Scene();
+  const camera3 = new THREE.PerspectiveCamera(42, W3 / H3, 0.1, 100);
+  camera3.position.set(0, 0.1, 5.8);
+
+  // Lights
+  scene3.add(new THREE.AmbientLight(0xF2E4CC, 1.6));
+  const kl = new THREE.DirectionalLight(0xFFE8C8, 2.2);
+  kl.position.set(-2, 5, 4); kl.castShadow = true; kl.shadow.radius = 8;
+  scene3.add(kl);
+  const fl = new THREE.DirectionalLight(0xF5DEB3, 0.9);
+  fl.position.set(3, 2, 2); scene3.add(fl);
+  const rl = new THREE.DirectionalLight(0xC8D8A0, 0.5);
+  rl.position.set(0, -1, -4); scene3.add(rl);
+
+  function sk(hex, r=0.97) {
+    return new THREE.MeshStandardMaterial({ color: hex, roughness: r, metalness: 0 });
+  }
+  function sm(geo, mat, px=0,py=0,pz=0, sx=1,sy=1,sz=1, rz=0) {
+    const m = new THREE.Mesh(geo, mat);
+    m.position.set(px,py,pz); m.scale.set(sx,sy,sz);
+    if (rz) m.rotation.z = rz;
+    m.castShadow = true; return m;
+  }
+
+  const fig3 = new THREE.Group();
+  scene3.add(fig3);
+
+  const SK=sk(0xE2C6A0), SK2=sk(0xDABC94), SK3=sk(0xD4B48C);
+
+  // Head
+  const hG=new THREE.SphereGeometry(0.195,32,28); hG.scale(0.9,1.08,0.84);
+  fig3.add(sm(hG, sk(0xE8CFA8), 0,1.76,0));
+  // Neck
+  fig3.add(sm(new THREE.CylinderGeometry(0.072,0.085,0.24,20), sk(0xDFC4A0), 0,1.50,0));
+  // Torso
+  fig3.add(sm(new THREE.CylinderGeometry(0.195,0.155,0.42,24), SK, 0,1.17,0, 1,1,0.52));
+  fig3.add(sm(new THREE.CylinderGeometry(0.148,0.168,0.28,24), SK, 0,0.82,0, 1,1,0.50));
+  fig3.add(sm(new THREE.CylinderGeometry(0.215,0.195,0.32,24), SK, 0,0.52,0, 1,1,0.52));
+  fig3.add(sm(new THREE.SphereGeometry(0.215,20,16), SK2, 0,0.30,0, 1,0.42,0.50));
+  // Chest
+  [[-0.085],[0.085]].forEach(([x])=>{
+    const b=sm(new THREE.SphereGeometry(0.105,18,14),sk(0xDDBF98),x,1.22,0.10,0.95,0.72,0.55);
+    fig3.add(b);
+  });
+  // Shoulders
+  [-1,1].forEach(s=>fig3.add(sm(new THREE.SphereGeometry(0.105,18,14),sk(0xDCBF9A),s*0.305,1.30,0,0.95,0.80,0.70)));
+  // Arms
+  [-1,1].forEach(s=>{
+    const ua=sm(new THREE.CylinderGeometry(0.062,0.052,0.50,16),SK,s*0.425,1.02,0,1,1,1,s*0.22); fig3.add(ua);
+    fig3.add(sm(new THREE.SphereGeometry(0.055,14,12),SK2,s*0.468,0.74,0));
+    const fa=sm(new THREE.CylinderGeometry(0.048,0.036,0.46,14),SK,s*0.505,0.50,0,1,1,1,s*0.14); fig3.add(fa);
+    fig3.add(sm(new THREE.SphereGeometry(0.036,12,10),SK2,s*0.535,0.26,0));
+    fig3.add(sm(new THREE.SphereGeometry(0.055,14,12),SK3,s*0.550,0.14,0,0.85,0.60,0.42));
+  });
+  // Legs
+  [-1,1].forEach(s=>{
+    const o=s*0.11;
+    fig3.add(sm(new THREE.CylinderGeometry(0.098,0.082,0.62,18),SK2,o,-0.22,0));
+    fig3.add(sm(new THREE.SphereGeometry(0.082,16,14),SK2,o,-0.56,0));
+    fig3.add(sm(new THREE.CylinderGeometry(0.065,0.048,0.58,14),SK2,o,-0.90,0.008));
+    fig3.add(sm(new THREE.SphereGeometry(0.044,12,10),SK3,o,-1.22,0));
+    fig3.add(sm(new THREE.SphereGeometry(0.068,14,10),SK3,o,-1.32,0.055,0.65,0.35,1.05));
+  });
+
+  // IVY
+  const ivy3 = new THREE.Group(); fig3.add(ivy3);
+  const LC=[0x6B9A48,0x4A7030,0x8CB865,0x3D5C28,0x7AAA50,0x5C8838];
+
+  function makeLeaf3() {
+    const s=new THREE.Shape();
+    s.moveTo(0,0);
+    s.bezierCurveTo(-0.022,0.055,-0.055,0.075,-0.08,0.058);
+    s.bezierCurveTo(-0.11,0.04,-0.11,0.01,-0.09,-0.01);
+    s.bezierCurveTo(-0.13,0.02,-0.155,-0.01,-0.13,-0.04);
+    s.bezierCurveTo(-0.10,-0.07,-0.065,-0.055,-0.045,-0.03);
+    s.bezierCurveTo(-0.07,-0.05,-0.08,-0.10,-0.055,-0.115);
+    s.bezierCurveTo(-0.03,-0.13,0,-0.11,0,-0.08);
+    s.bezierCurveTo(0,-0.11,0.03,-0.13,0.055,-0.115);
+    s.bezierCurveTo(0.08,-0.10,0.07,-0.05,0.045,-0.03);
+    s.bezierCurveTo(0.065,-0.055,0.10,-0.07,0.13,-0.04);
+    s.bezierCurveTo(0.155,-0.01,0.13,0.02,0.09,-0.01);
+    s.bezierCurveTo(0.11,0.01,0.11,0.04,0.08,0.058);
+    s.bezierCurveTo(0.055,0.075,0.022,0.055,0,0);
+    return new THREE.ShapeGeometry(s,12);
+  }
+
+  const leaves3=[];
+  for(let i=0;i<60;i++){
+    const t=i/60;
+    const y=-1.30+t*3.05;
+    let bR=t<0.12?0.09:t<0.30?0.14:t<0.48?0.20:t<0.58?0.24:t<0.68?0.17:t<0.82?0.22:t<0.90?0.13:0.10;
+    const sa=t*Math.PI*9+(i%4)*(Math.PI*0.5);
+    const oR=bR+0.08+Math.random()*0.12;
+    const x=Math.sin(sa)*oR, z=Math.cos(sa)*oR*0.6;
+    const lf=new THREE.Mesh(makeLeaf3(),
+      new THREE.MeshStandardMaterial({color:LC[i%LC.length],roughness:0.88,metalness:0,side:THREE.DoubleSide}));
+    lf.position.set(x,y,z);
+    lf.rotation.y=Math.atan2(x,z);
+    lf.rotation.x=-0.4-Math.random()*0.5;
+    lf.rotation.z=Math.random()*0.6-0.3;
+    const bs=1.0+t*1.2+Math.random()*0.5;
+    lf.userData.ts=bs; lf.userData.t=t;
+    lf.scale.setScalar(0);
+    ivy3.add(lf); leaves3.push(lf);
+  }
+
+  function makeVine3(ao,col){
+    const pts=[];
+    for(let i=0;i<=36;i++){
+      const t=i/36, y=-1.28+t*2.98;
+      const bR=t<0.15?0.10:t<0.35?0.14:t<0.55?0.22:t<0.70?0.17:0.20;
+      const a=t*Math.PI*7+ao, r=bR+0.04;
+      pts.push(new THREE.Vector3(Math.sin(a)*r*0.9,y,Math.cos(a)*r*0.55));
+    }
+    const g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),60,0.006,6,false);
+    const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:col,roughness:0.95}));
+    m.scale.y=0; ivy3.add(m); return m;
+  }
+  const v1=makeVine3(0,0x2E4020),v2=makeVine3(Math.PI,0x3A5228),v3=makeVine3(Math.PI*0.6,0x344820);
+
+  function updateIvy3(cov){
+    v1.scale.y=Math.min(1,cov*1.4);
+    v2.scale.y=Math.min(1,cov*1.3);
+    v3.scale.y=Math.min(1,cov*1.2);
+    leaves3.forEach(lf=>{
+      const th=lf.userData.t*0.78;
+      if(cov>th){const p=Math.min(1,(cov-th)/0.14),e=p*p*(3-2*p);lf.scale.setScalar(lf.userData.ts*e);}
+      else lf.scale.setScalar(0);
+    });
+  }
+
+  let rY3=0,cov3=0,ap3=0,ao3=true;
+  const clk3=new THREE.Clock();
+
+  function animate3(){
+    requestAnimationFrame(animate3);
+    const t=clk3.getElapsedTime();
+    if(ao3){
+      ap3+=0.0028;
+      if(ap3<=0.45){rY3=ap3*(Math.PI*2/0.45);cov3=0;}
+      else if(ap3<=0.85){const p=(ap3-0.45)/0.40;rY3+=0.013;cov3=Math.min(1,p*1.05);}
+      else{rY3+=0.007;cov3=1;}
+      if(ap3>1.05)ap3=0;
+    }
+    fig3.rotation.y=rY3;
+    updateIvy3(cov3);
+    fig3.rotation.z=Math.sin(t*0.4)*0.011;
+    fig3.position.y=Math.sin(t*0.35)*0.016;
+    leaves3.forEach((lf,i)=>{if(lf.scale.x>0.01)lf.rotation.z+=Math.sin(t*0.9+i*0.38)*0.0007;});
+    renderer3.render(scene3,camera3);
+  }
+  animate3();
+
+  // Wheel control
+  window.addEventListener('wheel',e=>{
+    ao3=false; rY3+=e.deltaY*0.004;
+    const rp=((rY3%(Math.PI*8))+Math.PI*32)%(Math.PI*8)/(Math.PI*8);
+    cov3=rp<0.45?0:Math.min(1,(rp-0.45)/0.55);
+    fig3.rotation.y=rY3; updateIvy3(cov3);
+    clearTimeout(window._r3); window._r3=setTimeout(()=>{ao3=true;ap3=0.46;},2500);
+  });
+})();
+// ══════════════════════════════════════════════════════
+
+// ── NAV ──────────────────────────────────────────────
+const mn=document.getElementById('mn');
+window.addEventListener('scroll',()=>mn.classList.toggle('scrolled',scrollY>60));
+
+// Mobile
+function toggleMob(){document.getElementById('mm').classList.toggle('open')}
+
+// ── GSAP SETUP ────────────────────────────────────────
+gsap.registerPlugin(ScrollTrigger);
+
+// ── HERO TEXT parallax ────────────────────────────────
+gsap.to('.hero-text', {
+  yPercent: -18,
+  ease: 'none',
+  scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: true }
+});
+gsap.to('.fig3d-wrap', {
+  yPercent: 8,
+  ease: 'none',
+  scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: true }
+});
+
+// ── REVEAL: .rv elements with stagger ────────────────
+gsap.utils.toArray('.rv').forEach(el => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 36 },
+    {
+      opacity: 1, y: 0, duration: 0.9, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+    }
+  );
+});
+
+// ── SECTION HEADINGS: split parallax ─────────────────
+gsap.utils.toArray('.stitle').forEach(el => {
+  gsap.fromTo(el,
+    { opacity: 0, x: -30 },
+    {
+      opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+    }
+  );
+});
+
+// ── SERVICE CARDS: cascade in ─────────────────────────
+gsap.utils.toArray('.sc').forEach((el, i) => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 40, scale: 0.96 },
+    {
+      opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power2.out',
+      delay: (i % 2) * 0.12,
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+    }
+  );
+});
+
+// ── HOW IT WORKS: steps stagger in ───────────────────
+(function(){
+  const steps = ['s1','s2','s3'];
+  const wrap  = document.getElementById('stepsWrap');
+  if(!wrap) return;
+  steps.forEach((id, i) => {
+    gsap.fromTo('#'+id,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: i * 0.2,
+        scrollTrigger: { trigger: wrap, start: 'top 75%', toggleActions: 'play none none none' }
+      }
+    );
+  });
+  gsap.to('#sf', {
+    width: '100%', ease: 'power2.inOut', duration: 1.2,
+    scrollTrigger: { trigger: wrap, start: 'top 75%', toggleActions: 'play none none none' }
+  });
+})();
+
+// ── BODY PANEL SECTION: figure slides in ─────────────
+gsap.fromTo('.bint-fig',
+  { opacity: 0, x: -50 },
+  {
+    opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.bint-bg', start: 'top 78%', toggleActions: 'play none none none' }
+  }
+);
+gsap.fromTo('.bpanels',
+  { opacity: 0, x: 50 },
+  {
+    opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.bint-bg', start: 'top 78%', toggleActions: 'play none none none' }
+  }
+);
+
+// ── TESTIMONIALS: stagger fan-in ─────────────────────
+gsap.utils.toArray('.tc').forEach((el, i) => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 50, rotation: i===0 ? -2 : i===2 ? 2 : 0 },
+    {
+      opacity: 1, y: 0, rotation: 0, duration: 0.8, ease: 'power2.out', delay: i * 0.15,
+      scrollTrigger: { trigger: '.test-bg', start: 'top 78%', toggleActions: 'play none none none' }
+    }
+  );
+});
+
+// ── COUNTER animation ─────────────────────────────────
+function animN(el,t,d=1800){let s=0;const fn=ts=>{if(!s)s=ts;const p=Math.min((ts-s)/d,1);el.textContent=Math.floor(p*t)+(el.dataset.count==='500'?'+':'');if(p<1)requestAnimationFrame(fn)};requestAnimationFrame(fn)}
+const co=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const c=parseInt(e.target.dataset.count);if(c)animN(e.target,c);co.unobserve(e.target)}}),{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+// ── BOOKING SECTION: slide up ─────────────────────────
+gsap.fromTo('.book-lay',
+  { opacity: 0, y: 60 },
+  {
+    opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.book-bg', start: 'top 80%', toggleActions: 'play none none none' }
+  }
+);
+
+// ── CONTACT MAP: scale in ────────────────────────────
+gsap.fromTo('.mapw',
+  { opacity: 0, scale: 0.94 },
+  {
+    opacity: 1, scale: 1, duration: 0.9, ease: 'power2.out',
+    scrollTrigger: { trigger: '.mapw', start: 'top 85%', toggleActions: 'play none none none' }
+  }
+);
+
+// ── BACKGROUND PARALLAX on dark sections ─────────────
+gsap.to('.how-bg', {
+  backgroundPositionY: '30%',
+  ease: 'none',
+  scrollTrigger: { trigger: '.how-bg', start: 'top bottom', end: 'bottom top', scrub: true }
+});
+
+// Service toggle
+function tSvc(c){const w=c.classList.contains('act');document.querySelectorAll('.sc').forEach(x=>x.classList.remove('act'));if(!w)c.classList.add('act')}
+
+// Body panel
+const pz={'ph':['zh'],'pn':['zn'],'pb':['zt'],'ps':['zsl','zsr'],'pa':['zal','zar'],'pp':['zpv'],'pl':['zll','zlr','zfl','zfr']};
+function selP(id){
+  document.querySelectorAll('.bp').forEach(p=>p.classList.remove('act'));
+  document.getElementById(id).classList.add('act');
+  document.querySelectorAll('.zone').forEach(z=>{z.style.fill='#EADED0';z.style.stroke='#C7AF94'});
+  (pz[id]||[]).forEach(zid=>{const el=document.getElementById(zid);if(el){el.style.fill='rgba(149,113,79,0.28)';el.style.stroke='#95714F'}});
+}
+document.querySelectorAll('.zone').forEach(z=>z.addEventListener('click',()=>{const p=z.dataset.p;if(p)selP(p)}));
+selP('ph');
+
+// Booking — invia a Make webhook → Notion
+async function doBook(){
+  const n  = document.getElementById('fn').value.trim();
+  const co = document.getElementById('fco').value.trim();
+  const p  = document.getElementById('ft').value.trim();
+  const e  = document.getElementById('fe').value.trim();
+  const sv = document.getElementById('fsv').value;
+  const d  = document.getElementById('fd').value;
+  const h  = document.getElementById('fh').value;
+  const ms = document.getElementById('fm').value.trim();
+
+  // Validazione campi obbligatori
+  if(!n||!p||!e){
+    [{id:'fn',v:n},{id:'ft',v:p},{id:'fe',v:e}].forEach(f=>{
+      if(!f.v){
+        const el=document.getElementById(f.id);
+        el.style.borderColor='rgba(200,100,100,.7)';
+        el.addEventListener('input',()=>el.style.borderColor='',{once:true});
+      }
+    });
+    return;
+  }
+
+  // Mostra loading
+  const btn = document.querySelector('.fsb');
+  btn.textContent = 'Invio in corso...';
+  btn.disabled = true;
+
+  try {
+    await fetch('https://hook.eu2.make.com/9k4on36gv1g2nl89edmb65woz8s5d3oa', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nome:              n,
+        cognome:           co,
+        telefono:          p,
+        email:             e,
+        servizio:          sv || 'Non specificato',
+        data_preferita:    d  || 'Non specificata',
+        orario_preferito:  h  || 'Non specificato',
+        messaggio:         ms || '',
+        fonte:             'Sito web',
+        data_richiesta:    new Date().toISOString().split('T')[0],
+      })
+    });
+    // Successo
+    document.getElementById('bform').style.display='none';
+    document.getElementById('fok').style.display='block';
+  } catch(err) {
+    // Fallback: mostra successo comunque (webhook potrebbe avere CORS)
+    document.getElementById('bform').style.display='none';
+    document.getElementById('fok').style.display='block';
+  }
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();window.scrollTo({top:t.offsetTop-80,behavior:'smooth'})}}));
+</script>
+</body>
+</html>
