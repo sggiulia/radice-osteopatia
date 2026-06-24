@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radice Osteopatia – Aosta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --almond:#EADED0;--sand:#C7AF94;--earth:#95714F;--moss:#8C916C;--sage:#ACB087;
+  --bark:#3D2E1E;--cream:#F5EFE6;--warm:#FAF7F2;--muted:#7A6E62;
+  --ivy:#3D5230;--ivyleaf:#4E7030;
+  --trans:0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--bark);overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5vw;height:72px;display:flex;align-items:center;justify-content:space-between;transition:background var(--trans),box-shadow var(--trans)}
+nav.scrolled{background:rgba(245,239,230,0.96);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(61,46,30,0.08)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:500;letter-spacing:.05em;color:var(--bark)}
+.nav-logo span{color:var(--moss)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--bark);opacity:.65;transition:opacity .25s}
+.nav-links a:hover{opacity:1}
+.nav-cta{background:var(--bark)!important;color:var(--cream)!important;opacity:1!important;padding:.5rem 1.3rem;border-radius:40px;transition:background .25s!important}
+.nav-cta:hover{background:var(--earth)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--bark);border-radius:2px}
+.mob-menu{display:none;position:fixed;inset:0;background:var(--cream);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mob-menu.open{display:flex}
+.mob-close{position:absolute;top:24px;right:5vw;font-size:1.4rem;cursor:pointer;color:var(--muted)}
+.mob-menu a{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--bark)}
+
+/* HERO */
+.hero{min-height:100svh;padding:72px 5vw 0;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:3rem;background:var(--cream);position:relative;overflow:hidden}
+.hero-bg{position:absolute;top:-10%;right:-5%;width:55vw;height:55vw;border-radius:50%;background:radial-gradient(ellipse,rgba(172,176,135,.12) 0%,transparent 70%);pointer-events:none}
+.hero-text{position:relative;z-index:2}
+.h-eye{font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--moss);margin-bottom:1.5rem;opacity:0;transform:translateY(14px);animation:fadeUp .8s .2s forwards}
+.h-head{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5.5vw,5.8rem);font-weight:300;line-height:1.06;color:var(--bark);margin-bottom:1.75rem;opacity:0;transform:translateY(22px);animation:fadeUp .9s .35s forwards}
+.h-head em{font-style:italic;color:var(--earth)}
+.h-sub{font-size:1.05rem;font-weight:300;color:var(--muted);max-width:420px;line-height:1.75;margin-bottom:2.5rem;opacity:0;animation:fadeUp .9s .5s forwards}
+.h-acts{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .9s .65s forwards}
+.btn-p{display:inline-flex;align-items:center;gap:.5rem;background:var(--bark);color:var(--cream);padding:.9rem 2rem;border-radius:40px;font-size:.88rem;font-weight:500;letter-spacing:.06em;transition:background var(--trans),transform .2s;border:none;cursor:pointer}
+.btn-p:hover{background:var(--earth);transform:translateY(-2px)}
+.btn-s{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--bark);padding:.9rem 2rem;border-radius:40px;font-size:.88rem;font-weight:500;letter-spacing:.06em;border:1.5px solid rgba(61,46,30,.22);transition:border-color var(--trans),transform .2s;cursor:pointer}
+.btn-s:hover{border-color:var(--earth);transform:translateY(-2px)}
+.hero-vis{display:flex;align-items:center;justify-content:center;opacity:0;animation:fadeIn 1.2s .8s forwards}
+.nav-logo span{color:var(--ivy)}
+.fig-scene{width:260px;height:520px;position:relative;perspective:1000px}
+.fig-rotator{position:absolute;width:100%;height:100%;transform-style:preserve-3d;will-change:transform}
+.fig-rotator svg{width:100%;height:100%}
+/* ── SPRITE SHEET ── */
+.sprite-scene{
+  position:relative;
+  width:280px;
+  height:520px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.sprite-frame{
+  width:260px;
+  height:510px;
+  background-image:url('https://cdn.jsdelivr.net/gh/sggiulia/radice-assets@main/sprite.png');
+  background-size:400% 300%;
+  background-position:0% 0%;
+  background-repeat:no-repeat;
+  image-rendering:auto;
+  will-change:background-position;
+  filter:drop-shadow(0 8px 32px rgba(61,46,30,.15));
+}
+.sprite-shadow{
+  position:absolute;
+  bottom:-12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:120px;
+  height:18px;
+  background:radial-gradient(ellipse,rgba(61,46,30,.18) 0%,transparent 70%);
+  border-radius:50%;
+}
+.anatomy{fill:none;stroke:#8a8278;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.muscle{fill:none;stroke:#b5ad9f;stroke-width:.9;opacity:.55;stroke-linecap:round}
+.vine{fill:none;stroke:#4d6547;stroke-width:2.8;stroke-linecap:round}
+.vine2{fill:none;stroke:#3d5230;stroke-width:2;stroke-linecap:round}
+.ivy-leaf{opacity:0;transform-origin:center}
+.wind-group{transform-origin:center bottom}
+
+/* WAVE */
+.wave{width:100%;overflow:hidden;line-height:0;margin-top:-2px}
+.wave svg{display:block;width:100%}
+
+/* TRUST */
+.trust{background:var(--almond);padding:3rem 5vw;display:flex;align-items:center;justify-content:center;gap:4rem;flex-wrap:wrap}
+.t-item{display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.t-num{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:500;color:var(--bark);line-height:1}
+.t-lbl{font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.t-line{width:1px;height:50px;background:rgba(61,46,30,.15)}
+
+/* SECTIONS */
+section{padding:6rem 5vw}
+.eye{font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--moss);margin-bottom:1rem}
+.stitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3.2rem);font-weight:300;line-height:1.15;color:var(--bark);margin-bottom:1rem}
+.stitle em{font-style:italic;color:var(--earth)}
+.ssub{font-size:1rem;color:var(--muted);max-width:560px;line-height:1.75;margin-bottom:3.5rem}
+
+/* SERVICES */
+.svc-bg{background:var(--cream)}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.sc{background:var(--warm);border-radius:20px;padding:2rem;cursor:pointer;border:1.5px solid transparent;transition:border-color var(--trans),box-shadow var(--trans),transform .3s;position:relative;overflow:hidden}
+.sc::before{content:'';position:absolute;left:0;top:0;width:3px;height:0;background:var(--earth);border-radius:0 3px 3px 0;transition:height var(--trans)}
+.sc:hover,.sc.act{border-color:rgba(149,113,79,.3);box-shadow:0 8px 32px rgba(61,46,30,.07);transform:translateY(-3px)}
+.sc:hover::before,.sc.act::before{height:100%}
+.si{width:46px;height:46px;background:var(--almond);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;transition:background var(--trans)}
+.sc:hover .si,.sc.act .si{background:rgba(172,176,135,.3)}
+.si svg{width:22px;height:22px;stroke:var(--earth);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.sn{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:500;margin-bottom:.5rem;color:var(--bark)}
+.sp{font-size:.88rem;color:var(--muted);line-height:1.65;margin-bottom:.75rem}
+.se{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(0.25,0.46,0.45,0.94)}
+.sc.act .se{max-height:220px}
+.sd{font-size:.85rem;color:var(--muted);line-height:1.7;padding-top:.85rem;border-top:1px solid var(--almond)}
+.stags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem}
+.stag{background:var(--almond);color:var(--earth);font-size:.7rem;padding:.25rem .7rem;border-radius:20px;font-weight:500;letter-spacing:.04em}
+.stgl{position:absolute;top:1.5rem;right:1.5rem;width:28px;height:28px;border-radius:50%;background:var(--almond);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:300;transition:transform .3s,background .3s;color:var(--earth)}
+.sc.act .stgl{transform:rotate(45deg);background:var(--earth);color:var(--cream)}
+
+/* HOW */
+.how-bg{background:var(--bark);color:var(--cream);position:relative;overflow:hidden}
+.how-bg::before{content:'';position:absolute;top:-30%;right:-10%;width:50vw;height:80%;background:radial-gradient(ellipse,rgba(172,176,135,.07) 0%,transparent 70%);pointer-events:none}
+.how-bg .eye{color:var(--sand)}
+.how-bg .stitle{color:var(--cream)}
+.how-bg .ssub{color:rgba(245,239,230,.55)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);position:relative;margin-top:1rem}
+.strack{position:absolute;top:40px;left:calc(16.66% + 22px);right:calc(16.66% + 22px);height:1px;background:rgba(245,239,230,.12);z-index:0}
+.sfill{position:absolute;top:40px;left:calc(16.66% + 22px);width:0;height:1px;background:var(--sage);z-index:1;transition:width 1.6s ease}
+.step{text-align:center;padding:0 2rem;position:relative;z-index:2;opacity:0}
+.step.rev{opacity:1}
+.scw{position:relative;width:80px;height:80px;margin:0 auto 2rem}
+.scc{width:80px;height:80px;border-radius:50%;background:rgba(245,239,230,.05);border:1.5px solid rgba(245,239,230,.18);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--sand);transition:background var(--trans),border-color var(--trans)}
+.step.rev .scc{background:rgba(172,176,135,.12);border-color:var(--sage)}
+.sif{position:absolute;top:-8px;right:-8px}
+.sif svg{width:22px;height:22px;stroke:var(--sage);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.stepttl{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--cream);margin-bottom:.75rem}
+.stepdsc{font-size:.88rem;color:rgba(245,239,230,.55);line-height:1.7}
+.stepdur{display:inline-block;margin-top:1rem;font-size:.7rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--sage)}
+
+/* BODY INT */
+.bint-bg{background:var(--almond);padding:6rem 5vw}
+.bint-lay{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:center;margin-top:2rem}
+.bint-fig{display:flex;justify-content:center}
+.bsvg{width:220px;cursor:default}
+.zone{cursor:pointer;transition:fill .35s,stroke .35s}
+.bpanels{display:flex;flex-direction:column;gap:.7rem}
+.bp{background:var(--warm);border-radius:16px;padding:1.2rem 1.4rem;cursor:pointer;border:1.5px solid transparent;transition:all .3s;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.9rem}
+.bp:hover,.bp.act{border-color:rgba(149,113,79,.35);box-shadow:0 4px 18px rgba(61,46,30,.07)}
+.bp.act{background:var(--bark)}
+.bpic{width:34px;height:34px;display:flex;align-items:center;justify-content:center}
+.bpic svg{width:20px;height:20px;stroke:var(--earth);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s}
+.bp.act .bpic svg{stroke:var(--sage)}
+.bpn{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;color:var(--bark);transition:color .3s}
+.bp.act .bpn{color:var(--cream)}
+.bpd{font-size:.82rem;color:var(--muted);line-height:1.55;max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .4s;opacity:0;grid-column:2}
+.bp.act .bpd{max-height:80px;opacity:1;color:rgba(245,239,230,.6)}
+.bpa{font-size:1rem;color:var(--sand);transition:transform .3s}
+.bp.act .bpa{transform:rotate(90deg)}
+
+/* TESTIMONIALS */
+.test-bg{background:var(--cream)}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.tc{background:var(--warm);border-radius:20px;padding:2rem;border:1.5px solid var(--almond);transition:box-shadow var(--trans),transform .3s}
+.tc:hover{box-shadow:0 8px 28px rgba(61,46,30,.07);transform:translateY(-4px)}
+.tqm{font-family:'Cormorant Garamond',serif;font-size:3.5rem;line-height:.5;color:var(--sand);display:block;margin-bottom:1.25rem}
+.ttxt{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-style:italic;color:var(--muted);line-height:1.8;margin-bottom:1.5rem}
+.taut{display:flex;align-items:center;gap:.75rem}
+.tav{width:40px;height:40px;border-radius:50%;background:var(--almond);display:flex;align-items:center;justify-content:center}
+.tav svg{width:20px;height:20px;stroke:var(--earth);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.tname{font-size:.85rem;font-weight:500;color:var(--bark)}
+.trole{font-size:.73rem;color:var(--muted)}
+.tstars{display:flex;gap:3px;margin-bottom:1rem}
+.tstars svg{width:13px;height:13px;fill:var(--sand)}
+
+/* BOOKING */
+.book-bg{background:var(--bark);color:var(--cream);position:relative;overflow:hidden}
+.book-bg::after{content:'';position:absolute;bottom:-20%;left:-10%;width:50vw;height:80%;background:radial-gradient(ellipse,rgba(172,176,135,.05) 0%,transparent 70%);pointer-events:none}
+.book-lay{display:grid;grid-template-columns:1fr 1.5fr;gap:6rem;align-items:start}
+.bi .eye{color:var(--sand)}
+.bi .stitle{color:var(--cream)}
+.bi .ssub{color:rgba(245,239,230,.55)}
+.bperks{list-style:none;display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.bpk{display:flex;align-items:flex-start;gap:.75rem;font-size:.9rem;color:rgba(245,239,230,.7);line-height:1.55}
+.pklf{flex-shrink:0;margin-top:3px}
+.pklf svg{width:14px;height:14px;stroke:var(--sage);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bfb{background:rgba(245,239,230,.05);border:1px solid rgba(245,239,230,.1);border-radius:24px;padding:2.5rem;position:relative;z-index:1}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.ff{grid-column:1/-1}
+.fgr{display:flex;flex-direction:column;gap:.4rem}
+.fl{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,239,230,.45)}
+.fi,.fs,.fta{background:rgba(245,239,230,.07);border:1px solid rgba(245,239,230,.13);border-radius:10px;padding:.8rem 1rem;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--cream);outline:none;transition:border-color .25s;width:100%;-webkit-appearance:none;appearance:none}
+.fi::placeholder,.fta::placeholder{color:rgba(245,239,230,.28)}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--sage);background:rgba(245,239,230,.1)}
+.fs option{background:var(--bark)}
+.fta{resize:none;height:100px}
+.fsb{width:100%;margin-top:1.25rem;background:var(--sage);color:var(--bark);padding:1rem;border-radius:40px;border:none;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;letter-spacing:.08em;cursor:pointer;transition:background .25s,transform .2s}
+.fsb:hover{background:var(--moss);color:var(--cream);transform:translateY(-2px)}
+.fok{display:none;text-align:center;padding:2.5rem 1rem;color:var(--sage);font-family:'Cormorant Garamond',serif;font-size:1.5rem;line-height:1.7}
+.fok span{display:block;font-family:'DM Sans',sans-serif;font-size:.9rem;color:rgba(245,239,230,.5);font-weight:300;margin-top:.5rem}
+
+/* CONTACT */
+.ct-bg{background:var(--almond);padding:5rem 5vw}
+.ct-lay{display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;align-items:start}
+.citems{display:flex;flex-direction:column;gap:2rem}
+.ci{display:flex;align-items:flex-start;gap:1rem}
+.cic{width:44px;height:44px;border-radius:12px;background:var(--warm);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(61,46,30,.06)}
+.cic svg{width:20px;height:20px;stroke:var(--earth);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.clbl{font-size:.7rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+.cval{font-size:.95rem;color:var(--bark);line-height:1.6}
+.mapw{border-radius:20px;overflow:hidden;height:300px;box-shadow:0 4px 24px rgba(61,46,30,.1)}
+.mapw iframe{width:100%;height:100%;border:none}
+
+/* FOOTER */
+footer{background:var(--bark);color:rgba(245,239,230,.5);padding:3rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.flogo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;color:var(--cream);letter-spacing:.05em}
+.flogo span{color:var(--sage)}
+.fcopy{font-size:.78rem}
+.flinks{display:flex;gap:1.5rem}
+.flinks a{font-size:.78rem;color:rgba(245,239,230,.4);transition:color .2s}
+.flinks a:hover{color:var(--cream)}
+
+/* WA */
+.waf{position:fixed;bottom:28px;right:28px;z-index:200;display:flex;align-items:center;gap:.75rem}
+.walbl{background:var(--bark);color:var(--cream);font-size:.78rem;font-weight:500;padding:.45rem .9rem;border-radius:20px;opacity:0;transform:translateX(10px);transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.waf:hover .walbl{opacity:1;transform:translateX(0)}
+.wabtn{width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .3s;cursor:pointer;position:relative}
+.wabtn:hover{transform:scale(1.1)}
+.wabtn svg{width:28px;height:28px;fill:white}
+.wapulse{position:absolute;inset:0;border-radius:50%;background:rgba(37,211,102,.25);animation:wap 2.2s infinite;pointer-events:none}
+
+/* REVEAL */
+.rv{opacity:0}
+.rv.rvd{opacity:1}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes wap{0%{transform:scale(1);opacity:.5}70%{transform:scale(1.55);opacity:0}100%{opacity:0}}
+@keyframes floatUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes leafSway{0%,100%{transform:rotate(0deg) translateX(0)}33%{transform:rotate(2deg) translateX(2px)}66%{transform:rotate(-1.5deg) translateX(-2px)}}
+@keyframes leafSway{0%,100%{transform:rotate(0deg)}33%{transform:rotate(1.5deg)}66%{transform:rotate(-1deg)}}
+@keyframes spriteFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes branchDraw{to{stroke-dashoffset:0}}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding-top:100px;text-align:center;gap:2.5rem}
+  .h-sub,.h-acts{margin-left:auto;margin-right:auto}
+  .h-acts{justify-content:center}
+  .hero-vis{order:-1}
+  .hero-fig{width:200px;height:340px}
+  .sprite-scene{width:220px;height:400px}
+  .sprite-frame{width:210px;height:390px}
+  .svc-grid,.steps,.bint-lay,.test-grid,.book-lay,.ct-lay{grid-template-columns:1fr}
+  .steps .strack,.steps .sfill{display:none}
+  .step{opacity:1;transform:none}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;text-align:center}
+  .trust{gap:2rem}
+  .t-line{display:none}
+  .fg{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<nav id="mn">
+  <div class="nav-logo">Radi<span>ce</span></div>
+  <ul class="nav-links">
+    <li><a href="#servizi">Servizi</a></li>
+    <li><a href="#come-funziona">Come Funziona</a></li>
+    <li><a href="#testimonianze">Testimonianze</a></li>
+    <li><a href="#contatti">Contatti</a></li>
+    <li><a href="#prenota" class="nav-cta">Prenota</a></li>
+  </ul>
+  <div class="hamburger" id="hbg" onclick="toggleMob()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mob-menu" id="mm">
+  <span class="mob-close" onclick="toggleMob()">✕</span>
+  <a href="#servizi" onclick="toggleMob()">Servizi</a>
+  <a href="#come-funziona" onclick="toggleMob()">Come Funziona</a>
+  <a href="#testimonianze" onclick="toggleMob()">Testimonianze</a>
+  <a href="#contatti" onclick="toggleMob()">Contatti</a>
+  <a href="#prenota" onclick="toggleMob()">Prenota</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-text">
+    <p class="h-eye">Osteopatia · Aosta, Valle d'Aosta</p>
+    <h1 class="h-head">Il tuo corpo<br>conosce la via<br>verso <em>l'equilibrio</em></h1>
+    <p class="h-sub">Un approccio dolce e integrato che lavora con le strutture profonde del corpo — ossa, muscoli, fasce — per liberare tensioni e ritrovare benessere duraturo.</p>
+    <div class="h-acts">
+      <a href="#prenota" class="btn-p">Prenota una visita &rarr;</a>
+      <a href="#servizi" class="btn-s">Scopri i trattamenti</a>
+    </div>
+  </div>
+  <div class="hero-vis">
+    <div class="sprite-scene">
+      <div class="sprite-frame" id="spriteFrame"></div>
+      <div class="sprite-shadow"></div>
+    </div>
+    <div class="fig-scene" style="display:none">
+      <div class="fig-rotator">
+        <svg viewBox="0 0 300 720" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- ══ WATERCOLOUR WASH ══ -->
+          <defs>
+            <radialGradient id="wcbg" cx="50%" cy="60%" r="50%">
+              <stop offset="0%"   stop-color="#dce8c8" stop-opacity=".35"/>
+              <stop offset="100%" stop-color="#c8d8a8" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="wctex">
+              <feTurbulence type="fractalNoise" baseFrequency="0.035 0.05" numOctaves="4" result="n"/>
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+          <ellipse cx="150" cy="360" rx="108" ry="310" fill="url(#wcbg)"/>
+
+          <!-- ══ SLENDER FEMALE FIGURE — delicate pencil/watercolour style ══ -->
+
+          <!-- Head — smaller, oval, refined -->
+          <ellipse class="anatomy" cx="150" cy="46" rx="22" ry="28"/>
+          <!-- Ear -->
+          <path class="anatomy" d="M 128 43 Q 124 48 124 54 Q 124 60 128 64"/>
+          <path class="anatomy" d="M 172 43 Q 176 48 176 54 Q 176 60 172 64"/>
+
+          <!-- Neck — slender -->
+          <path class="anatomy" d="M 141 72 Q 139 82 139 96 L 161 96 Q 161 82 159 72"/>
+          <path class="muscle"  d="M 144 74 Q 143 86 144 97"/>
+          <path class="muscle"  d="M 156 74 Q 157 86 156 97"/>
+
+          <!-- Shoulders — narrow, delicate slope -->
+          <path class="anatomy" d="M 139 96 Q 118 98 100 112 Q 90 120 86 132"/>
+          <path class="anatomy" d="M 161 96 Q 182 98 200 112 Q 210 120 214 132"/>
+          <!-- Trapezius — light -->
+          <path class="muscle" d="M 140 98 Q 122 104 106 116 Q 95 124 89 134"/>
+          <path class="muscle" d="M 160 98 Q 178 104 194 116 Q 205 124 211 134"/>
+
+          <!-- Torso — very narrow waist, gentle curves -->
+          <!-- Left silhouette: shoulder→ribcage curve in→waist→hip flare -->
+          <path class="anatomy" d="M 100 112 Q 92 148 93 192 Q 94 228 98 258 Q 100 275 104 298"/>
+          <!-- Right silhouette -->
+          <path class="anatomy" d="M 200 112 Q 208 148 207 192 Q 206 228 202 258 Q 200 275 196 298"/>
+
+          <!-- Sternum line -->
+          <path class="muscle" d="M 150 98 Q 150 148 150 210 Q 150 255 150 290"/>
+          <!-- Collarbone -->
+          <path class="muscle" d="M 139 100 Q 122 106 104 114"/>
+          <path class="muscle" d="M 161 100 Q 178 106 196 114"/>
+
+          <!-- Chest — subtle, feminine -->
+          <path class="muscle" d="M 138 110 Q 120 124 114 144 Q 111 160 120 168 Q 134 174 148 164 Q 152 148 148 128 Z"/>
+          <path class="muscle" d="M 162 110 Q 180 124 186 144 Q 189 160 180 168 Q 166 174 152 164 Q 148 148 152 128 Z"/>
+
+          <!-- Abs — very subtle, close together -->
+          <ellipse class="muscle" cx="145" cy="204" rx="10" ry="7"/>
+          <ellipse class="muscle" cx="155" cy="204" rx="10" ry="7"/>
+          <ellipse class="muscle" cx="145" cy="224" rx="9"  ry="7"/>
+          <ellipse class="muscle" cx="155" cy="224" rx="9"  ry="7"/>
+          <ellipse class="muscle" cx="146" cy="243" rx="8"  ry="6"/>
+          <ellipse class="muscle" cx="154" cy="243" rx="8"  ry="6"/>
+
+          <!-- Obliques — very faint -->
+          <path class="muscle" d="M 93 180 Q 99 215 102 252 Q 104 278 103 298" opacity=".4"/>
+          <path class="muscle" d="M 207 180 Q 201 215 198 252 Q 196 278 197 298" opacity=".4"/>
+
+          <!-- Pelvis — graceful, not wide -->
+          <path class="anatomy" d="M 104 298 Q 108 318 118 330 Q 132 340 150 342 Q 168 340 182 330 Q 192 318 196 298"/>
+          <path class="muscle"  d="M 112 300 Q 120 326 150 334 Q 180 326 188 300"/>
+          <path class="muscle"  d="M 122 302 Q 126 318 136 328"/>
+          <path class="muscle"  d="M 178 302 Q 174 318 164 328"/>
+
+          <!-- LEFT ARM — slender, arms hang close to body -->
+          <!-- Upper arm outer -->
+          <path class="anatomy" d="M 86 132 Q 76 166 74 210 Q 72 248 76 282"/>
+          <!-- Upper arm inner -->
+          <path class="anatomy" d="M 100 112 Q 90 132 86 132"/>
+          <!-- Bicep/tricep — very light -->
+          <path class="muscle"  d="M 90 138 Q 80 170 78 208 Q 76 244 80 278" opacity=".5"/>
+
+          <!-- Left forearm -->
+          <path class="anatomy" d="M 76 282 Q 72 316 72 352 Q 72 376 74 400"/>
+          <path class="muscle"  d="M 81 284 Q 77 318 77 354 Q 77 378 79 400" opacity=".5"/>
+
+          <!-- Left hand — delicate -->
+          <path class="anatomy" d="M 74 400 Q 70 414 68 426 Q 66 436 68 443"/>
+          <path class="anatomy" d="M 74 400 Q 72 413 73 425 Q 74 435 76 441"/>
+          <path class="anatomy" d="M 74 400 Q 74 412 76 423 Q 78 432 80 438"/>
+          <path class="anatomy" d="M 74 400 Q 76 410 79 420 Q 82 428 83 434"/>
+          <path class="anatomy" d="M 74 400 Q 77 408 80 416 Q 82 422 82 427"/>
+
+          <!-- RIGHT ARM -->
+          <path class="anatomy" d="M 214 132 Q 224 166 226 210 Q 228 248 224 282"/>
+          <path class="anatomy" d="M 200 112 Q 210 132 214 132"/>
+          <path class="muscle"  d="M 210 138 Q 220 170 222 208 Q 224 244 220 278" opacity=".5"/>
+
+          <!-- Right forearm -->
+          <path class="anatomy" d="M 224 282 Q 228 316 228 352 Q 228 376 226 400"/>
+          <path class="muscle"  d="M 219 284 Q 223 318 223 354 Q 223 378 221 400" opacity=".5"/>
+
+          <!-- Right hand -->
+          <path class="anatomy" d="M 226 400 Q 230 414 232 426 Q 234 436 232 443"/>
+          <path class="anatomy" d="M 226 400 Q 228 413 227 425 Q 226 435 224 441"/>
+          <path class="anatomy" d="M 226 400 Q 226 412 224 423 Q 222 432 220 438"/>
+          <path class="anatomy" d="M 226 400 Q 224 410 221 420 Q 218 428 217 434"/>
+          <path class="anatomy" d="M 226 400 Q 223 408 220 416 Q 218 422 218 427"/>
+
+          <!-- LEFT LEG — slender thighs, close together -->
+          <!-- Outer thigh -->
+          <path class="anatomy" d="M 118 342 Q 114 382 112 424 Q 110 464 112 504 Q 114 528 116 552"/>
+          <!-- Inner thigh -->
+          <path class="anatomy" d="M 142 342 Q 140 382 139 424 Q 138 466 139 506 Q 140 530 142 554"/>
+          <!-- Quad lines — subtle -->
+          <path class="muscle"  d="M 122 344 Q 118 386 116 428 Q 114 468 116 508" opacity=".45"/>
+          <path class="muscle"  d="M 133 344 Q 131 386 130 428 Q 129 468 130 508" opacity=".45"/>
+          <!-- Knee -->
+          <ellipse class="muscle" cx="129" cy="518" rx="13" ry="9"/>
+          <!-- Left shin -->
+          <path class="anatomy" d="M 116 552 Q 114 590 116 628 Q 117 652 118 668"/>
+          <path class="anatomy" d="M 142 554 Q 141 590 140 626 Q 140 650 140 666"/>
+          <!-- Left foot -->
+          <path class="anatomy" d="M 118 668 Q 112 672 104 674 Q 96 675 90 672 Q 87 668 88 663"/>
+          <path class="anatomy" d="M 140 666 Q 136 670 128 672 Q 120 674 112 672"/>
+          <path class="anatomy" d="M 88 663 Q 88 656 94 652 Q 102 649 114 649 Q 126 649 133 654"/>
+          <path class="muscle"  d="M 90 669 Q 100 672 114 672 Q 125 672 132 669"/>
+
+          <!-- RIGHT LEG -->
+          <path class="anatomy" d="M 182 342 Q 186 382 188 424 Q 190 464 188 504 Q 186 528 184 552"/>
+          <path class="anatomy" d="M 158 342 Q 160 382 161 424 Q 162 466 161 506 Q 160 530 158 554"/>
+          <path class="muscle"  d="M 178 344 Q 182 386 184 428 Q 186 468 184 508" opacity=".45"/>
+          <path class="muscle"  d="M 167 344 Q 169 386 170 428 Q 171 468 170 508" opacity=".45"/>
+          <!-- Knee -->
+          <ellipse class="muscle" cx="171" cy="518" rx="13" ry="9"/>
+          <!-- Right shin -->
+          <path class="anatomy" d="M 184 552 Q 186 590 184 628 Q 183 652 182 668"/>
+          <path class="anatomy" d="M 158 554 Q 159 590 160 626 Q 160 650 160 666"/>
+          <!-- Right foot -->
+          <path class="anatomy" d="M 182 668 Q 188 672 196 674 Q 204 675 210 672 Q 213 668 212 663"/>
+          <path class="anatomy" d="M 160 666 Q 164 670 172 672 Q 180 674 188 672"/>
+          <path class="anatomy" d="M 212 663 Q 212 656 206 652 Q 198 649 186 649 Q 174 649 167 654"/>
+          <path class="muscle"  d="M 210 669 Q 200 672 186 672 Q 175 672 168 669"/>
+
+          <!-- ══ IVY OVERLAY — 2 sinuous stems climbing body ══ -->
+          <g class="wind-group">
+
+            <!-- MAIN VINE — left side, feet up to shoulder -->
+            <path class="vine"
+              d="M 112 666
+                 C 104 642 116 614 108 582
+                 C 100 548 114 516 106 482
+                 C 98 446 112 414 104 378
+                 C 96 342 108 312 98 278
+                 C 88 242 104 210 96 174
+                 C 88 140 104 114 108 86"/>
+
+            <!-- SECOND VINE — right side, ankle up -->
+            <path class="vine2"
+              d="M 188 668
+                 C 198 644 186 616 194 582
+                 C 204 546 190 514 198 480
+                 C 208 444 194 412 202 376
+                 C 212 340 198 310 206 276
+                 C 216 240 202 208 210 172
+                 C 218 138 202 112 192 86"/>
+
+            <!-- IVY LEAVES — staggered along vines, bottom to top -->
+            <!-- foot level -->
+            <g class="ivy-leaf" style="animation-delay:0s">
+              <g transform="translate(96,654) rotate(-40)" filter="url(#wctex)">
+                <path fill="#88a870" stroke="#3d5230" stroke-width=".7" d="M0,-11 C5,-8 11,-5 8,0 C11,-5 10,4 5,6 C10,4 4,11 0,8 C4,11 -4,11 0,8 C-4,11 -10,4 -5,6 C-10,4 -11,-5 -8,0 C-11,-5 -5,-8 0,-11Z"/>
+                <line x1="0" y1="-3" x2="0" y2="8" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="0" x2="-5" y2="5" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="0" x2="5" y2="5" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+            <g class="ivy-leaf" style="animation-delay:.3s">
+              <g transform="translate(202,656) rotate(38)" filter="url(#wctex)">
+                <path fill="#7ea068" stroke="#3d5230" stroke-width=".7" d="M0,-11 C5,-8 11,-5 8,0 C11,-5 10,4 5,6 C10,4 4,11 0,8 C4,11 -4,11 0,8 C-4,11 -10,4 -5,6 C-10,4 -11,-5 -8,0 C-11,-5 -5,-8 0,-11Z"/>
+                <line x1="0" y1="-3" x2="0" y2="8" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="0" x2="-5" y2="5" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="0" x2="5" y2="5" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+            <!-- shin -->
+            <g class="ivy-leaf" style="animation-delay:.7s">
+              <g transform="translate(84,606) rotate(-55)" filter="url(#wctex)">
+                <path fill="#94b07c" stroke="#3d5230" stroke-width=".7" d="M0,-12 C5,-9 12,-5 9,0 C12,-5 11,5 5,7 C11,5 4,12 0,9 C4,12 -4,12 0,9 C-4,12 -11,5 -5,7 C-11,5 -12,-5 -9,0 C-12,-5 -5,-9 0,-12Z"/>
+                <line x1="0" y1="-3" x2="0" y2="9" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="0" x2="-6" y2="6" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="0" x2="6" y2="6" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+            <g class="ivy-leaf" style="animation-delay:1s">
+              <g transform="translate(212,604) rotate(52)" filter="url(#wctex)">
+                <path fill="#8aaa72" stroke="#3d5230" stroke-width=".7" d="M0,-12 C5,-9 12,-5 9,0 C12,-5 11,5 5,7 C11,5 4,12 0,9 C4,12 -4,12 0,9 C-4,12 -11,5 -5,7 C-11,5 -12,-5 -9,0 C-12,-5 -5,-9 0,-12Z"/>
+                <line x1="0" y1="-3" x2="0" y2="9" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="0" x2="-6" y2="6" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="0" x2="6" y2="6" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+            <!-- knee -->
+            <g class="ivy-leaf" style="animation-delay:1.4s">
+              <g transform="translate(78,492) rotate(-35) scale(1.1)" filter="url(#wctex)">
+                <path fill="#7aac64" stroke="#3d5230" stroke-width=".7" d="M0,-12 C5,-9 12,-5 9,0 C12,-5 11,5 5,7 C11,5 4,12 0,9 C4,12 -4,12 0,9 C-4,12 -11,5 -5,7 C-11,5 -12,-5 -9,0 C-12,-5 -5,-9 0,-12Z"/>
+                <line x1="0" y1="-3" x2="0" y2="9" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="0" x2="-6" y2="6" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="0" x2="6" y2="6" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+            <g class="ivy-leaf" style="animation-delay:1.7s">
+              <g transform="translate(218,490) rotate(32) scale(1.1)" filter="url(#wctex)">
+                <path fill="#82b46c" stroke="#3d5230" stroke-width=".7" d="M0,-12 C5,-9 12,-5 9,0 C12,-5 11,5 5,7 C11,5 4,12 0,9 C4,12 -4,12 0,9 C-4,12 -11,5 -5,7 C-11,5 -12,-5 -9,0 C-12,-5 -5,-9 0,-12Z"/>
+                <line x1="0" y1="-3" x2="0" y2="9" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="0" x2="-6" y2="6" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="0" x2="6" y2="6" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+            <!-- hip -->
+            <g class="ivy-leaf" style="animation-delay:2s">
+              <g transform="translate(72,362) rotate(-48) scale(1.15)" filter="url(#wctex)">
+                <path fill="#6e9e58" stroke="#3d5230" stroke-width=".7" d="M0,-13 C6,-10 13,-5 10,0 C13,-5 12,5 6,8 C12,5 5,13 0,10 C5,13 -5,13 0,10 C-5,13 -12,5 -6,8 C-12,5 -13,-5 -10,0 C-13,-5 -6,-10 0,-13Z"/>
+                <line x1="0" y1="-3" x2="0" y2="10" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="0" x2="-6" y2="7" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="0" x2="6" y2="7" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+            <g class="ivy-leaf" style="animation-delay:2.3s">
+              <g transform="translate(224,360) rotate(44) scale(1.15)" filter="url(#wctex)">
+                <path fill="#78a862" stroke="#3d5230" stroke-width=".7" d="M0,-13 C6,-10 13,-5 10,0 C13,-5 12,5 6,8 C12,5 5,13 0,10 C5,13 -5,13 0,10 C-5,13 -12,5 -6,8 C-12,5 -13,-5 -10,0 C-13,-5 -6,-10 0,-13Z"/>
+                <line x1="0" y1="-3" x2="0" y2="10" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="0" x2="-6" y2="7" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="0" x2="6" y2="7" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+            <!-- waist -->
+            <g class="ivy-leaf" style="animation-delay:2.7s">
+              <g transform="translate(68,272) rotate(-60) scale(1.2)" filter="url(#wctex)">
+                <path fill="#84b070" stroke="#3d5230" stroke-width=".7" d="M0,-13 C6,-10 13,-5 10,0 C13,-5 12,5 6,8 C12,5 5,13 0,10 C5,13 -5,13 0,10 C-5,13 -12,5 -6,8 C-12,5 -13,-5 -10,0 C-13,-5 -6,-10 0,-13Z"/>
+                <line x1="0" y1="-3" x2="0" y2="10" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="0" x2="-7" y2="7" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="0" x2="7" y2="7" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+            <g class="ivy-leaf" style="animation-delay:3s">
+              <g transform="translate(228,270) rotate(56) scale(1.15)" filter="url(#wctex)">
+                <path fill="#7aac68" stroke="#3d5230" stroke-width=".7" d="M0,-13 C6,-10 13,-5 10,0 C13,-5 12,5 6,8 C12,5 5,13 0,10 C5,13 -5,13 0,10 C-5,13 -12,5 -6,8 C-12,5 -13,-5 -10,0 C-13,-5 -6,-10 0,-13Z"/>
+                <line x1="0" y1="-3" x2="0" y2="10" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="0" x2="-7" y2="7" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="0" x2="7" y2="7" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+            <!-- chest -->
+            <g class="ivy-leaf" style="animation-delay:3.4s">
+              <g transform="translate(66,186) rotate(-30) scale(1.2)" filter="url(#wctex)">
+                <path fill="#88b474" stroke="#3d5230" stroke-width=".7" d="M0,-14 C6,-11 14,-5 11,0 C14,-5 12,6 6,9 C12,6 5,14 0,11 C5,14 -5,14 0,11 C-5,14 -12,6 -6,9 C-12,6 -14,-5 -11,0 C-14,-5 -6,-11 0,-14Z"/>
+                <line x1="0" y1="-4" x2="0" y2="11" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="0" x2="-7" y2="8" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="0" x2="7" y2="8" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+            <g class="ivy-leaf" style="animation-delay:3.7s">
+              <g transform="translate(230,184) rotate(28) scale(1.2)" filter="url(#wctex)">
+                <path fill="#80ac6c" stroke="#3d5230" stroke-width=".7" d="M0,-14 C6,-11 14,-5 11,0 C14,-5 12,6 6,9 C12,6 5,14 0,11 C5,14 -5,14 0,11 C-5,14 -12,6 -6,9 C-12,6 -14,-5 -11,0 C-14,-5 -6,-11 0,-14Z"/>
+                <line x1="0" y1="-4" x2="0" y2="11" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="0" x2="-7" y2="8" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="0" x2="7" y2="8" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+            <!-- shoulder / neck -->
+            <g class="ivy-leaf" style="animation-delay:4.1s">
+              <g transform="translate(72,118) rotate(-22) scale(1.3)" filter="url(#wctex)">
+                <path fill="#6e9e5a" stroke="#3d5230" stroke-width=".8" d="M0,-15 C7,-11 15,-5 12,0 C15,-5 13,7 7,10 C13,7 5,15 0,12 C5,15 -5,15 0,12 C-5,15 -13,7 -7,10 C-13,7 -15,-5 -12,0 C-15,-5 -7,-11 0,-15Z"/>
+                <line x1="0" y1="-4" x2="0" y2="12" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="-1" x2="-8" y2="8" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="-1" x2="8" y2="8" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="3" x2="-7" y2="10" stroke="#3d5230" stroke-width=".35"/>
+                <line x1="0" y1="3" x2="7" y2="10" stroke="#3d5230" stroke-width=".35"/>
+              </g>
+            </g>
+            <g class="ivy-leaf" style="animation-delay:4.4s">
+              <g transform="translate(226,116) rotate(20) scale(1.25)" filter="url(#wctex)">
+                <path fill="#78a862" stroke="#3d5230" stroke-width=".8" d="M0,-15 C7,-11 15,-5 12,0 C15,-5 13,7 7,10 C13,7 5,15 0,12 C5,15 -5,15 0,12 C-5,15 -13,7 -7,10 C-13,7 -15,-5 -12,0 C-15,-5 -7,-11 0,-15Z"/>
+                <line x1="0" y1="-4" x2="0" y2="12" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="-1" x2="-8" y2="8" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="-1" x2="8" y2="8" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="3" x2="-7" y2="10" stroke="#3d5230" stroke-width=".35"/>
+                <line x1="0" y1="3" x2="7" y2="10" stroke="#3d5230" stroke-width=".35"/>
+              </g>
+            </g>
+            <!-- near head -->
+            <g class="ivy-leaf" style="animation-delay:4.8s">
+              <g transform="translate(120,68) rotate(-10) scale(1.25)" filter="url(#wctex)">
+                <path fill="#84b470" stroke="#3d5230" stroke-width=".8" d="M0,-15 C7,-11 15,-5 12,0 C15,-5 13,7 7,10 C13,7 5,15 0,12 C5,15 -5,15 0,12 C-5,15 -13,7 -7,10 C-13,7 -15,-5 -12,0 C-15,-5 -7,-11 0,-15Z"/>
+                <line x1="0" y1="-4" x2="0" y2="12" stroke="#3d5230" stroke-width=".6"/>
+                <line x1="0" y1="-1" x2="-7" y2="8" stroke="#3d5230" stroke-width=".4"/>
+                <line x1="0" y1="-1" x2="7" y2="8" stroke="#3d5230" stroke-width=".4"/>
+              </g>
+            </g>
+
+          </g><!-- end wind-group -->
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="#EADED0" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z"/></svg></div>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="t-item rv"><span class="t-num" data-count="500">0</span><span class="t-lbl">Pazienti trattati</span></div>
+  <div class="t-line rv d1"></div>
+  <div class="t-item rv d1"><span class="t-num">5+</span><span class="t-lbl">Anni di esperienza</span></div>
+  <div class="t-line rv d2"></div>
+  <div class="t-item rv d2"><span class="t-num">98%</span><span class="t-lbl">Pazienti soddisfatti</span></div>
+  <div class="t-line rv d3"></div>
+  <div class="t-item rv d3"><span class="t-num">60'</span><span class="t-lbl">Prima visita dedicata</span></div>
+</div>
+
+<div class="wave" style="transform:rotate(180deg);background:var(--cream);margin-top:-2px"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="#EADED0" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z"/></svg></div>
+
+<!-- SERVICES -->
+<section class="svc-bg" id="servizi">
+  <p class="eye rv">Trattamenti</p>
+  <h2 class="stitle rv d1">Ogni corpo ha<br>la sua <em>storia</em></h2>
+  <p class="ssub rv d2">L'osteopatia lavora sull'insieme, cercando la causa profonda del disagio. Clicca su ogni trattamento per scoprire di più.</p>
+  <div class="svc-grid">
+
+    <div class="sc rv" onclick="tSvc(this)">
+      <div class="stgl">+</div>
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="sn">Osteopatia Strutturale</div>
+      <p class="sp">Libera le tensioni di muscoli, articolazioni e colonna vertebrale attraverso tecniche manuali precise.</p>
+      <div class="se"><div class="sd">La tecnica strutturale agisce sulle disfunzioni osteoarticolari con manipolazioni dolci e mirate, ripristinando mobilità e riducendo il dolore in modo duraturo.<div class="stags"><span class="stag">Mal di schiena</span><span class="stag">Ernia del disco</span><span class="stag">Sciatalgia</span><span class="stag">Cervicalgia</span></div></div></div>
+    </div>
+
+    <div class="sc rv d1" onclick="tSvc(this)">
+      <div class="stgl">+</div>
+      <div class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <div class="sn">Osteopatia Craniosacrale</div>
+      <p class="sp">Un approccio ultradelicato che lavora sui ritmi sottili del sistema craniosacrale.</p>
+      <div class="se"><div class="sd">Attraverso tocchi leggerissimi sul cranio e sul sacro, si influenza il sistema nervoso centrale favorendo un profondo rilassamento e il riequilibrio delle tensioni fasciali.<div class="stags"><span class="stag">Cefalee</span><span class="stag">Stress</span><span class="stag">Neonati</span><span class="stag">Gravidanza</span></div></div></div>
+    </div>
+
+    <div class="sc rv d2" onclick="tSvc(this)">
+      <div class="stgl">+</div>
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9C5 14 12 22 12 22C12 22 19 14 19 9C19 5 16 2 12 2Z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+      <div class="sn">Osteopatia in Gravidanza</div>
+      <p class="sp">Accompagna il corpo nei cambiamenti della gravidanza, preparando il bacino al parto.</p>
+      <div class="se"><div class="sd">Supporta l'adattamento della colonna e del bacino, riduce il rischio di disturbi posturali e favorisce un recupero post-parto più rapido.<div class="stags"><span class="stag">Dolore lombare</span><span class="stag">Sciatalgia</span><span class="stag">Post-parto</span><span class="stag">Nausea</span></div></div></div>
+    </div>
+
+    <div class="sc rv d3" onclick="tSvc(this)">
+      <div class="stgl">+</div>
+      <div class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+      <div class="sn">Osteopatia Sportiva</div>
+      <p class="sp">Prevenzione degli infortuni, recupero rapido e ottimizzazione della performance atletica.</p>
+      <div class="se"><div class="sd">Analisi biomeccanica, trattamento delle tensioni da sovraccarico e protocolli di recupero post-infortuno per ogni disciplina e livello.<div class="stags"><span class="stag">Tendiniti</span><span class="stag">Distorsioni</span><span class="stag">Performance</span><span class="stag">Prevenzione</span></div></div></div>
+    </div>
+
+    <div class="sc rv" onclick="tSvc(this)">
+      <div class="stgl">+</div>
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="sn">Osteopatia Pediatrica</div>
+      <p class="sp">Dai neonati con coliche o plagiocefalia ai bambini con disturbi di postura e crescita.</p>
+      <div class="se"><div class="sd">Tecniche gentilissime adattate alla fisiologia del bambino. Intervento precoce su disfunzioni che, non trattate, potrebbero accompagnare la crescita.<div class="stags"><span class="stag">Coliche</span><span class="stag">Plagiocefalia</span><span class="stag">Postura</span><span class="stag">Scoliosi</span></div></div></div>
+    </div>
+
+    <div class="sc rv d1" onclick="tSvc(this)">
+      <div class="stgl">+</div>
+      <div class="si"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>
+      <div class="sn">Osteopatia Viscerale</div>
+      <p class="sp">Agisce sugli organi interni per liberare tensioni fasciali profonde che influenzano tutto il corpo.</p>
+      <div class="se"><div class="sd">Gli organi interni possono essere fonte di tensioni riflesse. Lavoriamo sulle membrane che li avvolgono, migliorandone la mobilità e la funzione.<div class="stags"><span class="stag">Digestione</span><span class="stag">Riflusso</span><span class="stag">Dolori cronici</span><span class="stag">Ciclo irregolare</span></div></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-bg" id="come-funziona">
+  <p class="eye">Il percorso</p>
+  <h2 class="stitle">Semplice, chiaro,<br><em>personale</em></h2>
+  <p class="ssub">Ogni visita è un dialogo tra te e il tuo corpo. Non esistono protocolli uguali per tutti.</p>
+  <div class="steps" id="stepsWrap">
+    <div class="strack"></div>
+    <div class="sfill" id="sf"></div>
+    <div class="step" id="s1">
+      <div class="scw"><div class="scc">I</div><div class="sif"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div></div>
+      <div class="stepttl">Prima Visita</div>
+      <p class="stepdsc">Ascolto profondo della tua storia clinica, delle tue abitudini e di come vivi il disagio nel quotidiano.</p>
+      <span class="stepdur">60 minuti</span>
+    </div>
+    <div class="step" id="s2">
+      <div class="scw"><div class="scc">II</div><div class="sif"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div></div>
+      <div class="stepttl">Valutazione</div>
+      <p class="stepdsc">Analisi posturale e test osteopatico per individuare le disfunzioni e comprendere la causa profonda dei sintomi.</p>
+      <span class="stepdur">Incluso nella visita</span>
+    </div>
+    <div class="step" id="s3">
+      <div class="scw"><div class="scc">III</div><div class="sif"><svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></div></div>
+      <div class="stepttl">Trattamento & Piano</div>
+      <p class="stepdsc">Trattamento su misura e, se necessario, un piano di follow-up personalizzato per consolidare i risultati.</p>
+      <span class="stepdur">45 minuti</span>
+    </div>
+  </div>
+</section>
+
+<div class="wave" style="background:var(--bark);margin-top:-2px"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="#EADED0" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z"/></svg></div>
+
+<!-- BODY INTERACTIVE -->
+<section class="bint-bg">
+  <p class="eye rv">Mappa del corpo</p>
+  <h2 class="stitle rv d1">Cosa tratta<br><em>l'osteopatia</em></h2>
+  <p class="ssub rv d2">Seleziona un'area corporea per scoprire i disturbi che l'osteopatia può aiutarti a risolvere.</p>
+  <div class="bint-lay">
+    <div class="bint-fig">
+      <svg class="bsvg" id="bsvg" viewBox="0 0 200 480" xmlns="http://www.w3.org/2000/svg">
+        <ellipse id="zh" class="zone" data-p="ph" cx="100" cy="58" rx="32" ry="37" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <rect id="zn" class="zone" data-p="pn" x="88" y="88" width="24" height="20" rx="5" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <path id="zt" class="zone" data-p="pb" d="M 62 108 Q 55 135 58 172 Q 60 200 65 220 L 135 220 Q 140 200 142 172 Q 145 135 138 108 Z" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <ellipse id="zsl" class="zone" data-p="ps" cx="50" cy="118" rx="18" ry="11" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <ellipse id="zsr" class="zone" data-p="ps" cx="150" cy="118" rx="18" ry="11" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <path id="zal" class="zone" data-p="pa" d="M 35 122 Q 27 158 30 192 Q 32 208 36 218 Q 46 222 48 212 Q 44 192 44 158 Q 46 130 52 122 Z" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <path id="zar" class="zone" data-p="pa" d="M 165 122 Q 173 158 170 192 Q 168 208 164 218 Q 154 222 152 212 Q 156 192 156 158 Q 154 130 148 122 Z" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <path id="zpv" class="zone" data-p="pp" d="M 65 220 Q 58 238 62 252 L 138 252 Q 142 238 135 220 Z" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <path id="zll" class="zone" data-p="pl" d="M 70 252 Q 64 298 66 348 Q 67 372 68 402 Q 76 408 83 402 Q 84 372 85 348 Q 87 298 90 252 Z" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <path id="zlr" class="zone" data-p="pl" d="M 130 252 Q 136 298 134 348 Q 133 372 132 402 Q 124 408 117 402 Q 116 372 115 348 Q 113 298 110 252 Z" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <ellipse id="zfl" class="zone" data-p="pl" cx="76" cy="412" rx="14" ry="7" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+        <ellipse id="zfr" class="zone" data-p="pl" cx="124" cy="412" rx="14" ry="7" fill="#EADED0" stroke="#C7AF94" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="bpanels" id="bpanels">
+      <div class="bp act" id="ph" onclick="selP('ph')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        <div><div class="bpn">Testa & Cranio</div><div class="bpd">Cefalee tensionali, emicranie, vertigini, disfunzioni dell'ATM, sinusite, acufeni.</div></div>
+        <div class="bpa">›</div>
+      </div>
+      <div class="bp" id="pn" onclick="selP('pn')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+        <div><div class="bpn">Collo & Cervicale</div><div class="bpd">Cervicalgia, torcicollo, dolori irradiati al braccio, nevralgia cervicobrachiale.</div></div>
+        <div class="bpa">›</div>
+      </div>
+      <div class="bp" id="pb" onclick="selP('pb')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><path d="M12 2L12 22M8 6L12 2L16 6M8 18L12 22L16 18"/></svg></div>
+        <div><div class="bpn">Schiena & Colonna</div><div class="bpd">Lombalgia acuta e cronica, ernie del disco, dorso curvo, scoliosi, postura.</div></div>
+        <div class="bpa">›</div>
+      </div>
+      <div class="bp" id="ps" onclick="selP('ps')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><path d="M6 12C6 8.69 8.69 6 12 6M18 12C18 15.31 15.31 18 12 18"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div><div class="bpn">Spalla & Braccio</div><div class="bpd">Periartrite, cuffia dei rotatori, epicondilite, tendiniti, dolori post-frattura.</div></div>
+        <div class="bpa">›</div>
+      </div>
+      <div class="bp" id="pa" onclick="selP('pa')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><path d="M18 11V6.5A2.5 2.5 0 0 0 13 6.5V11M13 8.5V7A2.5 2.5 0 0 0 8 7v1.5M8 10V8.5A2 2 0 0 0 4 8.5V14A7 7 0 0 0 11 21h3A6 6 0 0 0 20 15V11a2 2 0 0 0-4 0"/></svg></div>
+        <div><div class="bpn">Gomito, Polso & Mano</div><div class="bpd">Gomito del tennista, tunnel carpale, tendinite del polso, dolori da sovraccarico.</div></div>
+        <div class="bpa">›</div>
+      </div>
+      <div class="bp" id="pp" onclick="selP('pp')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><path d="M3 12C3 7.03 7.03 3 12 3C16.97 3 21 7.03 21 12M3 12H21M12 12C12 16.97 8 21 5 21M12 12C12 16.97 16 21 19 21"/></svg></div>
+        <div><div class="bpn">Bacino & Lombari</div><div class="bpd">Sciatalgia, dolore sacroiliaco, dismetria degli arti, pavimento pelvico.</div></div>
+        <div class="bpa">›</div>
+      </div>
+      <div class="bp" id="pl" onclick="selP('pl')">
+        <div class="bpic"><svg viewBox="0 0 24 24"><path d="M10 2L8 14L11 16L9 22M14 2L16 14L13 16L15 22"/></svg></div>
+        <div><div class="bpn">Gambe & Piedi</div><div class="bpd">Gonalgia, fascite plantare, distorsioni di caviglia, metatarsalgia, sovraccarico sportivo.</div></div>
+        <div class="bpa">›</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave" style="background:var(--almond);margin-top:-2px"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="var(--cream)" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z"/></svg></div>
+
+<!-- TESTIMONIALS -->
+<section class="test-bg" id="testimonianze">
+  <p class="eye rv">Testimonianze</p>
+  <h2 class="stitle rv d1">Cosa dicono<br>i <em>pazienti</em></h2>
+  <p class="ssub rv d2">Le parole di chi ha scelto Radice per ritrovare il proprio equilibrio.</p>
+  <div class="test-grid">
+    <div class="tc rv">
+      <div class="tstars"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <span class="tqm">"</span>
+      <p class="ttxt">Soffro di mal di schiena cronico da anni. Dopo soli tre sedute mi sono sentita una persona diversa. Finalmente capisco come funziona il mio corpo.</p>
+      <div class="taut"><div class="tav"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="tname">Martina R.</div><div class="trole">Insegnante · Aosta</div></div></div>
+    </div>
+    <div class="tc rv d1">
+      <div class="tstars"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <span class="tqm">"</span>
+      <p class="ttxt">Ho portato mia figlia di tre mesi per le coliche. Il trattamento è stato dolcissimo. In una settimana la situazione era completamente diversa.</p>
+      <div class="taut"><div class="tav"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="tname">Giulia & Sofia</div><div class="trole">Madre · Saint-Vincent</div></div></div>
+    </div>
+    <div class="tc rv d2">
+      <div class="tstars"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <span class="tqm">"</span>
+      <p class="ttxt">Come atleta di trail running avevo bisogno di qualcuno che capisse il movimento. Ho migliorato la postura e ridotto i tempi di recupero post-gara.</p>
+      <div class="taut"><div class="tav"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="tname">Marco T.</div><div class="trole">Trail runner · Courmayeur</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="book-bg" id="prenota">
+  <div class="book-lay">
+    <div class="bi">
+      <p class="eye">Prenota</p>
+      <h2 class="stitle">Inizia il tuo<br><em>percorso</em></h2>
+      <p class="ssub">La prima visita dura circa 60 minuti. Compila il modulo e ti contatteremo per confermare.</p>
+      <ul class="bperks">
+        <li class="bpk"><div class="pklf"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>Prima visita completa con anamnesi e trattamento</li>
+        <li class="bpk"><div class="pklf"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>Studio accogliente in centro ad Aosta</li>
+        <li class="bpk"><div class="pklf"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>Risposta entro 24 ore dalla richiesta</li>
+        <li class="bpk"><div class="pklf"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>Satispay, bonifico o contanti a tua scelta</li>
+        <li class="bpk"><div class="pklf"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>Ricevuta fiscale per ogni seduta</li>
+      </ul>
+    </div>
+    <div class="bfb">
+      <div id="bform">
+        <div class="fg">
+          <div class="fgr"><label class="fl">Nome *</label><input class="fi" type="text" placeholder="Il tuo nome" id="fn"></div>
+          <div class="fgr"><label class="fl">Cognome *</label><input class="fi" type="text" placeholder="Il tuo cognome" id="fco"></div>
+          <div class="fgr"><label class="fl">Telefono *</label><input class="fi" type="tel" placeholder="+39 333 123 4567" id="ft"></div>
+          <div class="fgr"><label class="fl">Email *</label><input class="fi" type="email" placeholder="tua@email.it" id="fe"></div>
+          <div class="fgr ff"><label class="fl">Tipo di trattamento</label>
+            <select class="fs" id="fsv">
+              <option value="">Seleziona un trattamento...</option>
+              <option>Osteopatia Strutturale</option><option>Osteopatia Craniosacrale</option>
+              <option>Osteopatia in Gravidanza</option><option>Osteopatia Sportiva</option>
+              <option>Osteopatia Pediatrica</option><option>Osteopatia Viscerale</option>
+              <option>Non so — prima valutazione</option>
+            </select>
+          </div>
+          <div class="fgr"><label class="fl">Data preferita</label><input class="fi" type="date" id="fd"></div>
+          <div class="fgr"><label class="fl">Orario preferito</label>
+            <select class="fs" id="fh">
+              <option value="">Seleziona...</option>
+              <option>Mattina (8:00–12:00)</option><option>Pomeriggio (14:00–18:00)</option>
+              <option>Tardo pomeriggio (18:00–20:00)</option>
+            </select>
+          </div>
+          <div class="fgr ff"><label class="fl">Descrivi brevemente il tuo disturbo</label><textarea class="fta" placeholder="Es: mal di schiena da alcune settimane, soprattutto al risveglio..." id="fm"></textarea></div>
+        </div>
+        <button class="fsb" onclick="doBook()">Invia richiesta &rarr;</button>
+      </div>
+      <div class="fok" id="fok">
+        <svg viewBox="0 0 24 24" style="width:48px;height:48px;margin:0 auto 1rem;stroke:var(--sage);fill:none;stroke-width:1.5;stroke-linecap:round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4 2 8s-2 12-10 12z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+        Richiesta ricevuta!<span>Ti contatteremo entro 24 ore per confermare l'appuntamento.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="ct-bg" id="contatti">
+  <p class="eye rv">Dove trovarci</p>
+  <h2 class="stitle rv d1">Lo <em>studio</em></h2>
+  <div class="ct-lay">
+    <div class="citems rv">
+      <div class="ci"><div class="cic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="clbl">Indirizzo</div><div class="cval">Via Festaz, 12<br>11100 Aosta (AO)</div></div></div>
+      <div class="ci"><div class="cic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><div class="clbl">Telefono / WhatsApp</div><div class="cval">+39 333 000 0000</div></div></div>
+      <div class="ci"><div class="cic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="clbl">Email</div><div class="cval">info@radiceosteopatia.it</div></div></div>
+      <div class="ci"><div class="cic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="clbl">Orari</div><div class="cval">Lun – Ven: 8:00 – 20:00<br>Sabato: 9:00 – 13:00</div></div></div>
+    </div>
+    <div class="mapw rv d1"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11148.77!2d7.3151!3d45.7373!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47886e22f44e8f4b%3A0x400!2sAosta%2C+AO!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Radice Osteopatia Aosta"></iframe></div>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">Radi<span>ce</span></div>
+  <p class="fcopy">&copy; 2024 Radice Osteopatia &middot; Aosta &middot; P.IVA 00000000000</p>
+  <div class="flinks"><a href="#">Privacy</a><a href="#">Cookie</a><a href="#prenota">Prenota</a></div>
+</footer>
+
+<a href="https://wa.me/393330000000" target="_blank" class="waf" aria-label="WhatsApp">
+  <div class="walbl">Scrivici su WhatsApp</div>
+  <div class="wabtn">
+    <div class="wapulse"></div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+  </div>
+</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+// Branch draw on load
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.br').forEach(el=>{
+    const styleStr=el.getAttribute('style')||'';
+    const delayMatch=styleStr.match(/animation-delay:([\d.]+)s/);
+    const delay=(delayMatch?parseFloat(delayMatch[1]):0)*1000+900;
+    setTimeout(()=>{
+      el.style.transition='stroke-dashoffset 1.3s cubic-bezier(0.4,0,0.2,1)';
+      el.style.strokeDashoffset='0';
+    },delay);
+  });
+});
+
+// ── NAV ──────────────────────────────────────────────
+const mn=document.getElementById('mn');
+window.addEventListener('scroll',()=>mn.classList.toggle('scrolled',scrollY>60));
+
+// Mobile
+function toggleMob(){document.getElementById('mm').classList.toggle('open')}
+
+// ── GSAP SETUP ────────────────────────────────────────
+gsap.registerPlugin(ScrollTrigger);
+
+// ── SPRITE SHEET: scroll-driven frame stepping ────────
+(function(){
+  const frame  = document.getElementById('spriteFrame');
+  if(!frame) return;
+
+  const IMG_URL = 'https://cdn.jsdelivr.net/gh/sggiulia/radice-assets@main/sprite.png';
+
+  // Preload image first, then init ScrollTrigger
+  const img = new Image();
+  img.onload = function() {
+    frame.style.backgroundImage = "url('" + IMG_URL + "')";
+    initSprite();
+  };
+  img.onerror = function() {
+    // Fallback: try raw.githubusercontent
+    const fallback = 'https://raw.githubusercontent.com/sggiulia/radice-assets/main/sprite.png';
+    frame.style.backgroundImage = "url('" + fallback + "')";
+    initSprite();
+  };
+  img.src = IMG_URL;
+
+  // Grid: 4 cols × 3 rows = 12 frames
+  const cols = 4, rows = 3, total = 12;
+  const xSteps = [0, 33.333, 66.666, 100];
+  const ySteps = [0, 50, 100];
+
+  function setFrame(n) {
+    const clamped = Math.max(0, Math.min(total - 1, n));
+    const col = clamped % cols;
+    const row = Math.floor(clamped / cols);
+    frame.style.backgroundPosition = xSteps[col] + '% ' + ySteps[row] + '%';
+  }
+
+  function initSprite() {
+    setFrame(0);
+
+    ScrollTrigger.create({
+      trigger: '#home',
+      start: 'top top',
+      end: '+=2200',
+      pin: true,
+      anticipatePin: 1,
+      scrub: 1.4,
+      onUpdate: self => {
+        const frameIndex = Math.floor(self.progress * (total - 0.001));
+        setFrame(frameIndex);
+        const scale = frameIndex >= 9 ? 1 + (frameIndex - 9) * 0.012 : 1;
+        frame.style.transform = 'scale(' + scale + ')';
+      }
+    });
+  }
+
+  // Gentle float animation
+  frame.style.animation = 'spriteFloat 5s ease-in-out infinite';
+})();
+
+// ── HERO TEXT parallax ────────────────────────────────
+gsap.to('.hero-text', {
+  yPercent: -18,
+  ease: 'none',
+  scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: true }
+});
+gsap.to('.fig-scene', {
+  yPercent: 8,
+  ease: 'none',
+  scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: true }
+});
+
+// ── REVEAL: .rv elements with stagger ────────────────
+gsap.utils.toArray('.rv').forEach(el => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 36 },
+    {
+      opacity: 1, y: 0, duration: 0.9, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+    }
+  );
+});
+
+// ── SECTION HEADINGS: split parallax ─────────────────
+gsap.utils.toArray('.stitle').forEach(el => {
+  gsap.fromTo(el,
+    { opacity: 0, x: -30 },
+    {
+      opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+    }
+  );
+});
+
+// ── SERVICE CARDS: cascade in ─────────────────────────
+gsap.utils.toArray('.sc').forEach((el, i) => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 40, scale: 0.96 },
+    {
+      opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power2.out',
+      delay: (i % 2) * 0.12,
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+    }
+  );
+});
+
+// ── HOW IT WORKS: steps stagger in ───────────────────
+(function(){
+  const steps = ['s1','s2','s3'];
+  const wrap  = document.getElementById('stepsWrap');
+  if(!wrap) return;
+  steps.forEach((id, i) => {
+    gsap.fromTo('#'+id,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: i * 0.2,
+        scrollTrigger: { trigger: wrap, start: 'top 75%', toggleActions: 'play none none none' }
+      }
+    );
+  });
+  gsap.to('#sf', {
+    width: '100%', ease: 'power2.inOut', duration: 1.2,
+    scrollTrigger: { trigger: wrap, start: 'top 75%', toggleActions: 'play none none none' }
+  });
+})();
+
+// ── BODY PANEL SECTION: figure slides in ─────────────
+gsap.fromTo('.bint-fig',
+  { opacity: 0, x: -50 },
+  {
+    opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.bint-bg', start: 'top 78%', toggleActions: 'play none none none' }
+  }
+);
+gsap.fromTo('.bpanels',
+  { opacity: 0, x: 50 },
+  {
+    opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.bint-bg', start: 'top 78%', toggleActions: 'play none none none' }
+  }
+);
+
+// ── TESTIMONIALS: stagger fan-in ─────────────────────
+gsap.utils.toArray('.tc').forEach((el, i) => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 50, rotation: i===0 ? -2 : i===2 ? 2 : 0 },
+    {
+      opacity: 1, y: 0, rotation: 0, duration: 0.8, ease: 'power2.out', delay: i * 0.15,
+      scrollTrigger: { trigger: '.test-bg', start: 'top 78%', toggleActions: 'play none none none' }
+    }
+  );
+});
+
+// ── COUNTER animation ─────────────────────────────────
+function animN(el,t,d=1800){let s=0;const fn=ts=>{if(!s)s=ts;const p=Math.min((ts-s)/d,1);el.textContent=Math.floor(p*t)+(el.dataset.count==='500'?'+':'');if(p<1)requestAnimationFrame(fn)};requestAnimationFrame(fn)}
+const co=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const c=parseInt(e.target.dataset.count);if(c)animN(e.target,c);co.unobserve(e.target)}}),{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+// ── BOOKING SECTION: slide up ─────────────────────────
+gsap.fromTo('.book-lay',
+  { opacity: 0, y: 60 },
+  {
+    opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.book-bg', start: 'top 80%', toggleActions: 'play none none none' }
+  }
+);
+
+// ── CONTACT MAP: scale in ────────────────────────────
+gsap.fromTo('.mapw',
+  { opacity: 0, scale: 0.94 },
+  {
+    opacity: 1, scale: 1, duration: 0.9, ease: 'power2.out',
+    scrollTrigger: { trigger: '.mapw', start: 'top 85%', toggleActions: 'play none none none' }
+  }
+);
+
+// ── BACKGROUND PARALLAX on dark sections ─────────────
+gsap.to('.how-bg', {
+  backgroundPositionY: '30%',
+  ease: 'none',
+  scrollTrigger: { trigger: '.how-bg', start: 'top bottom', end: 'bottom top', scrub: true }
+});
+
+// Service toggle
+function tSvc(c){const w=c.classList.contains('act');document.querySelectorAll('.sc').forEach(x=>x.classList.remove('act'));if(!w)c.classList.add('act')}
+
+// Body panel
+const pz={'ph':['zh'],'pn':['zn'],'pb':['zt'],'ps':['zsl','zsr'],'pa':['zal','zar'],'pp':['zpv'],'pl':['zll','zlr','zfl','zfr']};
+function selP(id){
+  document.querySelectorAll('.bp').forEach(p=>p.classList.remove('act'));
+  document.getElementById(id).classList.add('act');
+  document.querySelectorAll('.zone').forEach(z=>{z.style.fill='#EADED0';z.style.stroke='#C7AF94'});
+  (pz[id]||[]).forEach(zid=>{const el=document.getElementById(zid);if(el){el.style.fill='rgba(149,113,79,0.28)';el.style.stroke='#95714F'}});
+}
+document.querySelectorAll('.zone').forEach(z=>z.addEventListener('click',()=>{const p=z.dataset.p;if(p)selP(p)}));
+selP('ph');
+
+// Booking
+function doBook(){
+  const n=document.getElementById('fn').value.trim();
+  const p=document.getElementById('ft').value.trim();
+  const e=document.getElementById('fe').value.trim();
+  if(!n||!p||!e){[{id:'fn',v:n},{id:'ft',v:p},{id:'fe',v:e}].forEach(f=>{if(!f.v){const el=document.getElementById(f.id);el.style.borderColor='rgba(200,100,100,.7)';el.addEventListener('input',()=>el.style.borderColor='',{once:true})}});return}
+  document.getElementById('bform').style.display='none';
+  document.getElementById('fok').style.display='block';
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();window.scrollTo({top:t.offsetTop-80,behavior:'smooth'})}}));
+</script>
+</body>
+</html>
