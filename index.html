@@ -727,7 +727,7 @@ window.addEventListener('load',()=>{
     const t=clk3.getElapsedTime();
     if(ao3){
       ap3+=0.0028;
-      if(ap3<=0.45){rY3=ap3*(Math.PI*2/0.45);cov3=0;}
+      if(ap3<=0.45){rY3=ap3*(Math.PI*0.25/0.45);cov3=0;}
       else if(ap3<=0.85){const p=(ap3-0.45)/0.40;rY3+=0.013;cov3=Math.min(1,p*1.05);}
       else{rY3+=0.007;cov3=1;}
       if(ap3>1.05)ap3=0;
